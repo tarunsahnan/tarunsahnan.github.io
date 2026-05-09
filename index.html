@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarun Sahnan — Builder of things on screens.</title>
+<meta name="description" content="Frontend Engineer & Full-Stack Builder. Owns Web, Samsung TV, and LG TV at STAGE.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c;
+    --bg-2: #131316;
+    --ink: #ece8df;
+    --ink-soft: #8a857c;
+    --accent: #ff5b3a;
+    --rule: rgba(236, 232, 223, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  .serif { font-family: 'Instrument Serif', Georgia, serif; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+
+  /* CSS-only animated background — no WebGL needed */
+  .bg-field {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(60% 50% at 70% 30%, rgba(255, 91, 58, 0.12), transparent 60%),
+      radial-gradient(50% 60% at 25% 75%, rgba(255, 91, 58, 0.08), transparent 60%),
+      radial-gradient(40% 30% at 50% 50%, rgba(120, 70, 200, 0.05), transparent 60%);
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    0%   { background-position: 0% 0%, 0% 0%, 0% 0%; }
+    100% { background-position: 8% -6%, -6% 8%, 4% 4%; }
+  }
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* ─── nav ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100; padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10, 10, 12, 0.55);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border-bottom: 1px solid rgba(236, 232, 223, 0.04);
+  }
+  nav .brand { font-family: 'Instrument Serif', serif; font-size: 22px; letter-spacing: -0.5px; }
+  nav ul { list-style: none; display: flex; gap: 32px; }
+  nav ul li {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  nav ul li a { padding: 6px 0; position: relative; display: inline-block; }
+  nav ul li a::after {
+    content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
+    background: var(--ink); transition: width 0.4s ease;
+  }
+  nav ul li a:hover::after { width: 100%; }
+
+  section { position: relative; z-index: 2; }
+
+  /* ─── hero ─── */
+  .hero {
+    min-height: 86vh; padding: 100px 40px 40px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .hero .top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px; color: var(--ink-soft);
+    text-transform: uppercase; margin-bottom: 60px;
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(64px, 12vw, 188px);
+    line-height: 0.88;
+    letter-spacing: -3px;
+    margin-bottom: 14px;
+  }
+  .hero h1 i { font-style: italic; color: var(--accent); }
+  .hero h1 .l1, .hero h1 .l2 { display: block; opacity: 0; transform: translateY(40px); animation: rise 1.1s cubic-bezier(0.2,0.8,0.2,1) forwards; }
+  .hero h1 .l1 { animation-delay: 0.1s; }
+  .hero h1 .l2 { animation-delay: 0.25s; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  .hero .subline {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 48px; align-items: end;
+    padding-top: 32px; border-top: 1px solid var(--rule);
+    opacity: 0; animation: rise 1s ease 0.6s forwards;
+  }
+  .hero .lede {
+    font-size: clamp(18px, 1.7vw, 24px);
+    font-weight: 300; line-height: 1.45;
+    max-width: 640px;
+  }
+  .hero .lede em {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    color: var(--accent); font-size: 1.1em;
+  }
+  .hero .meta-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero .meta-tags span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--ink-soft); border: 1px solid var(--rule);
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .scroll-cue {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px;
+    color: var(--ink-soft); text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
+  .scroll-cue .line {
+    width: 1px; height: 36px;
+    background: linear-gradient(to bottom, var(--ink-soft), transparent);
+    animation: pulseLine 2s ease-in-out infinite;
+  }
+  @keyframes pulseLine { 0%,100% { transform: scaleY(1); opacity: 0.5; } 50% { transform: scaleY(1.4); opacity: 1; } }
+
+  /* ─── marquee (CSS only) ─── */
+  .marquee {
+    overflow: hidden; padding: 18px 0;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    background: var(--bg); position: relative; z-index: 3;
+  }
+  .marquee-track {
+    display: flex; gap: 40px;
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 4.5vw, 64px);
+    line-height: 1; white-space: nowrap;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-track .dot { color: var(--accent); font-size: 0.5em; padding: 0 20px; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* ─── sections ─── */
+  .section { padding: 140px 40px; max-width: 1400px; margin: 0 auto; }
+  .section.dense { background: var(--bg-2); max-width: none; }
+  .section.dense > .inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+  .section-head {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 48px; margin-bottom: 80px; align-items: end;
+  }
+  .section-head .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 2px; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .section-head h2 {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(44px, 6.5vw, 96px);
+    line-height: 0.95; letter-spacing: -2px;
+  }
+  .section-head h2 i { font-style: italic; color: var(--accent); }
+
+  /* ─── about ─── */
+  .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+  .about-meta {
+    position: sticky; top: 80px;
+    display: grid; gap: 24px;
+  }
+  .about-meta div .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px; color: var(--accent); text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .about-meta div .v { font-size: 14px; color: var(--ink); }
+  .about-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(22px, 2.2vw, 32px);
+    line-height: 1.4;
+  }
+  .about-text p + p { margin-top: 24px; }
+  .about-text em { color: var(--accent); font-style: italic; }
+  .about-text b { font-weight: 500; }
+
+  /* ─── work ─── */
+  .work-card {
+    border-top: 1px solid var(--rule);
+    padding: 56px 0;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: start;
+  }
+  .work-card:last-child { border-bottom: 1px solid var(--rule); }
+  .work-meta { position: sticky; top: 80px; }
+  .work-meta .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px; color: var(--ink-soft); text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .work-meta .company {
+    font-family: 'Instrument Serif', serif; font-size: 56px; line-height: 1;
+    letter-spacing: -1.5px; margin-bottom: 16px;
+  }
+  .work-meta .period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px; color: var(--accent);
+  }
+  .work-content > p {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px; line-height: 1.4;
+    margin-bottom: 32px; max-width: 620px;
+  }
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-bottom: 40px; padding: 28px 0;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .stat .v {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 3.6vw, 52px);
+    line-height: 1; letter-spacing: -1.5px; color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .stat .v i { font-style: italic; }
+  .stat .l {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 1.5px; color: var(--ink-soft); text-transform: uppercase;
+  }
+  .work-content ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .work-content li {
+    position: relative;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .work-content li::before {
+    content: "→";
+    position: absolute;
+    left: 0; top: 0;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .work-content li b { color: var(--accent); font-weight: 500; }
+
+  /* ─── projects ─── */
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .project {
+    position: relative;
+    padding: 40px 36px;
+    border: 1px solid var(--rule); background: var(--bg);
+    overflow: hidden;
+    min-height: 280px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: border-color 0.4s ease, transform 0.4s ease;
+  }
+  .project:hover {
+    border-color: rgba(255, 91, 58, 0.4);
+    transform: translateY(-4px);
+  }
+  .project::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 91, 58, 0.12), transparent 50%);
+    opacity: 0; transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .project:hover::before { opacity: 1; }
+  .project .head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .project .name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px; line-height: 1; letter-spacing: -1px;
+  }
+  .project .status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent);
+    padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .project .status.live { color: #5dd589; border-color: #5dd589; }
+  .project .desc {
+    font-size: 14.5px; line-height: 1.55; color: var(--ink); margin-bottom: 20px;
+  }
+  .project .desc b { color: var(--accent); font-weight: 500; }
+  .project .link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .project .link::after {
+    content: "→"; transition: transform 0.3s ease;
+  }
+  .project:hover .link::after { transform: translateX(6px); }
+
+  /* ─── past ─── */
+  .past { display: grid; }
+  .past-row {
+    display: grid; grid-template-columns: 220px 1fr 200px;
+    gap: 40px; padding: 28px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+  }
+  .past-row:last-child { border-bottom: 1px solid var(--rule); }
+  .past-row:hover { transform: translateX(14px); }
+  .past-row .pcompany { font-family: 'Instrument Serif', serif; font-size: 32px; line-height: 1; letter-spacing: -0.5px; }
+  .past-row .pdesc { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .past-row .pperiod {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1px; color: var(--accent); text-align: right;
+    text-transform: uppercase;
+  }
+
+  /* ─── contact ─── */
+  .contact {
+    padding: 180px 40px 100px;
+    text-align: center;
+    max-width: 1400px; margin: 0 auto;
+    position: relative; z-index: 2;
+  }
+  .contact .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .contact h2 {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(60px, 11vw, 180px);
+    line-height: 0.9; letter-spacing: -3px;
+    margin-bottom: 56px;
+  }
+  .contact h2 i { font-style: italic; color: var(--accent); }
+  .contact a.email {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3vw, 44px);
+    border-bottom: 1px solid var(--ink); padding-bottom: 8px;
+    display: inline-block;
+    transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+  .contact a.email:hover { color: var(--accent); border-bottom-color: var(--accent); transform: translateY(-2px); }
+  .socials {
+    margin-top: 64px; display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+  }
+  .socials a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft);
+    padding: 6px 0; transition: color 0.3s ease;
+  }
+  .socials a:hover { color: var(--accent); }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 24px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1px;
+    position: relative; z-index: 2;
+  }
+
+  /* ─── reveal on scroll (IntersectionObserver) ─── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ─── mobile ─── */
+  @media (max-width: 880px) {
+    nav { padding: 16px 20px; }
+    nav ul { gap: 16px; }
+    .hero { padding: 96px 20px 56px; }
+    .hero .top { flex-direction: column; gap: 12px; margin-bottom: 40px; }
+    .hero h1 { letter-spacing: -2px; }
+    .hero .subline { grid-template-columns: 1fr; gap: 20px; }
+    .section { padding: 80px 20px; }
+    .section.dense > .inner { padding: 0 20px; }
+    .section-head { grid-template-columns: 1fr; gap: 12px; margin-bottom: 48px; }
+    .about-grid { grid-template-columns: 1fr; gap: 28px; }
+    .about-meta { position: static; }
+    .work-card { grid-template-columns: 1fr; gap: 24px; padding: 36px 0; }
+    .work-meta { position: static; }
+    .work-meta .company { font-size: 40px; }
+    .stats { grid-template-columns: 1fr; gap: 16px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project .name { font-size: 32px; }
+    .past-row { grid-template-columns: 1fr; gap: 4px; }
+    .past-row .pperiod { text-align: left; }
+    .contact { padding: 100px 20px 80px; }
+    footer { flex-direction: column; gap: 8px; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-field"></div>
+<div class="grain"></div>
+
+<nav>
+  <a href="#" class="brand">Tarun Sahnan</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="top">
+    <div>Frontend Engineer<br>& Full-Stack Builder</div>
+  </div>
+  <div>
+    <h1><span class="l1">Builder of</span><span class="l2"><i>things</i> on screens<i>.</i></span></h1>
+    <div class="subline">
+      <p class="lede">
+        I'm Tarun Sahnan. I own the <em>STAGE web platform</em> end-to-end and built Samsung TV + LG TV apps solo. I ship outcomes — not just features.
+      </p>
+      <div class="meta-tags">
+        <span>React</span><span>Next.js</span><span>HLS</span><span>Tizen</span><span>webOS</span><span>AI-native</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <div>Scroll</div>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>FRONTEND<span class="dot">●</span>PERFORMANCE<span class="dot">●</span>STREAMING<span class="dot">●</span>AI-NATIVE<span class="dot">●</span>FUNNELS<span class="dot">●</span>SHIPS OUTCOMES<span class="dot">●</span></span>
+    <span>FRONTEND<span class="dot">●</span>PERFORMANCE<span class="dot">●</span>STREAMING<span class="dot">●</span>AI-NATIVE<span class="dot">●</span>FUNNELS<span class="dot">●</span>SHIPS OUTCOMES<span class="dot">●</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="section-head reveal">
+    <div class="num">01 / About</div>
+    <h2>Engineer who <i>owns</i><br>the whole journey.</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-meta">
+      <div><div class="k">Currently</div><div class="v">Frontend Engineer at STAGE</div></div>
+      <div><div class="k">Based in</div><div class="v">Noida, India</div></div>
+      <div><div class="k">Working with</div><div class="v">React, Next.js, TypeScript, HLS, Tizen, webOS, Claude.</div></div>
+      <div><div class="k">Available for</div><div class="v">Conversations with builders shipping ambitious products.</div></div>
+    </div>
+    <div class="about-text reveal">
+      <p>I don't think of myself as a "frontend developer." I think of myself as a <em>builder</em> — someone who reads product metrics, decides what to build, ships it solo, and watches the numbers move.</p>
+      <p>At STAGE I own the entire <b>web platform</b> end-to-end. Built <b>Samsung TV and LG TV</b> apps from scratch with no prior Tizen or webOS knowledge. Drove <em>2x improvement in subscription rate</em>. Improved web→app install conversion from 27% to 42%. Authored the team-wide AI Coding Playbook.</p>
+      <p>I'm bullish on AI-native engineering. The role of "engineer" is being <em>rewritten in real time</em>, and I'd rather be building the next version than defending the old one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="section dense">
+  <div class="inner">
+    <div class="section-head reveal">
+      <div class="num">02 / Work</div>
+      <h2>Selected <i>work.</i></h2>
+    </div>
+    <div class="work-card">
+      <div class="work-meta">
+        <div class="role">Software Engineer · Frontend</div>
+        <div class="company">STAGE</div>
+        <div class="period">JUL 2024 — PRESENT</div>
+      </div>
+      <div class="work-content">
+        <p>Sole owner of the STAGE web platform. Built Samsung TV and LG TV apps solo from scratch. Lead the frontend team of three.</p>
+        <div class="stats reveal">
+          <div class="stat"><div class="v">2<i>×</i></div><div class="l">Subscription rate</div></div>
+          <div class="stat"><div class="v">27→42<i>%</i></div><div class="l">Web → app install conversion</div></div>
+          <div class="stat"><div class="v">~2 mins</div><div class="l">TV release cycle (was ~2 months)</div></div>
+        </div>
+        <ul>
+          <li>Solely developed the entire frontend of STAGE in <b>Next.js (App Router)</b> with SSR / SSG / ISR — owning architecture, routing, accessibility, and rollout from scratch.</li>
+          <li>Improved <b>Lighthouse score 58 → 90</b> and reduced page load from 7s to 3s through caching, image optimization, code-splitting, lazy loading, and bundle reduction.</li>
+          <li>Built the Watch Page using <b>HLS adaptive bitrate streaming</b> — quality switches based on user bandwidth for smooth playback across devices.</li>
+          <li>Built <b>automated SEO &amp; GEO agents</b> with self-improving auto-research that replaced the third-party SEO agency and drove 30+ PRs.</li>
+          <li>Shipped <b>Samsung TV and LG TV apps</b> by adapting the web codebase with remote-key navigation. Implemented Over-The-Air updates — release time ~2 months → ~2 minutes.</li>
+          <li>Authored the <b>AI Coding Playbook</b> — anyone in the org can run it on any STAGE repo. Built the <b>Code Review Council</b> — automated multi-persona AI reviewer that cut review time by ~70%.</li>
+          <li>Migrated Next.js hosting from AWS Amplify to <b>self-hosted infra</b> — reduced infra costs by ~70%.</li>
+          <li>Leading the frontend team of 3; first-responder for Web production incidents.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="section-head reveal">
+    <div class="num">03 / Projects</div>
+    <h2>Things I'm <i>building</i><br>on the side.</h2>
+  </div>
+  <div class="projects-grid">
+
+    <a class="project reveal" href="#" data-spot>
+      <div class="head">
+        <div class="name serif">SWORD</div>
+        <div class="status">In progress</div>
+      </div>
+      <div class="desc">Native desktop GUI for <b>Claude Code</b>. Claude.ai-inspired UI, multi-chat sidebar, Shiki syntax highlighting, and a zero-config auth flow that auto-detects existing Claude login sessions.</div>
+      <div class="link">Coming soon</div>
+    </a>
+
+    <a class="project reveal" href="#" data-spot>
+      <div class="head">
+        <div class="name serif">Citovo</div>
+        <div class="status">In progress</div>
+      </div>
+      <div class="desc">An <b>automated end-to-end SEO &amp; GEO platform</b>. SEO audits, programmatic SEO, AI-generated blogs, and ready-to-use prompts users can feed into their AI agents.</div>
+      <div class="link">Coming soon</div>
+    </a>
+
+    <a class="project reveal" href="https://inspex.in" target="_blank" rel="noopener" data-spot>
+      <div class="head">
+        <div class="name serif">Inspex.in</div>
+        <div class="status live">Live</div>
+      </div>
+      <div class="desc">Company intelligence platform aggregating detailed data on <b>Indian companies</b>. Building AI chat assistance for on-the-fly company audits.</div>
+      <div class="link">inspex.in</div>
+    </a>
+
+    <a class="project reveal" href="https://examsankalp.in" target="_blank" rel="noopener" data-spot>
+      <div class="head">
+        <div class="name serif">Exam Sankalp</div>
+        <div class="status live">Live</div>
+      </div>
+      <div class="desc">Practice platform for <b>Indian govt exam aspirants</b>. AI-generated questions, previous-year question banks, topic-wise mock tests, performance analytics.</div>
+      <div class="link">examsankalp.in</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- PAST -->
+<section id="past" class="section dense">
+  <div class="inner">
+    <div class="section-head reveal">
+      <div class="num">04 / Earlier</div>
+      <h2>Where I came <i>from.</i></h2>
+    </div>
+    <div class="past">
+      <div class="past-row">
+        <div class="pcompany">Liberin</div>
+        <div class="pdesc">Software Engineer — Built a high-performance Vue 3 dashboard from scratch (Vite + TypeScript + Tailwind + Vitest), owning architecture, components, and rollout. Created an NPM package for multi-flow auth used across all internal projects. Lifted test coverage from 35% to 83% in a legacy codebase. Enhanced a custom UI library with dynamic components and Storybook-driven testing. Designed Node.js REST API services and a Java-based internal web server.</div>
+        <div class="pperiod">2023 — 2024</div>
+      </div>
+      <div class="past-row">
+        <div class="pcompany">Krishify</div>
+        <div class="pdesc">Software Engineer Intern — Built "Bhumi", India's first Agri AI Chatbot, in React within a 48-hour hackathon and shipped to production. Owned the frontend end-to-end of a scalable, fully responsive React-based e-commerce platform actively used by a multi-million-user farmer base. Optimized the Android app in Kotlin for performance and UX, reducing screen load times and improving app responsiveness.</div>
+        <div class="pperiod">2022 — 2023</div>
+      </div>
+      <div class="past-row">
+        <div class="pcompany">BrainOP</div>
+        <div class="pdesc">Frontend Developer Intern — Solely built the Mapbox dashboard frontend in React.js, integrating Chart.js for dynamic and interactive data visualization. Collaborated closely with UX/UI design teams to ship a polished, consistent interface.</div>
+        <div class="pperiod">2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="label">— Get in touch —</div>
+  <h2 class="reveal">Let's <i>build</i><br>something good.</h2>
+  <a class="email" href="mailto:tarunsahnan98@gmail.com">tarunsahnan98@gmail.com</a>
+  <div class="socials">
+    <a href="https://linkedin.com/in/tarun-sahnan" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/tarunsahnan" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://twitter.com/tarun_sahnan" target="_blank" rel="noopener">Twitter</a>
+    <a href="tel:+918427269387">+91 84272 69387</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Tarun Sahnan</div>
+  <div>Built solo · shipped curious</div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Spotlight glow on project cards
+  document.querySelectorAll('[data-spot]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+    });
+  });
+</script>
+
+</body>
+</html>
