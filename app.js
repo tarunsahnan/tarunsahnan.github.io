@@ -208,7 +208,7 @@ async function copyText(text, success) {
     await navigator.clipboard.writeText(text);
     toast(success);
   } catch {
-    toast(text);
+    toast(`Clipboard unavailable. Copy manually: ${text}`);
   }
 }
 $('.copy-email').addEventListener('click', () => copyText('tarunsahnan98@gmail.com', 'Email copied. Let’s make something good.'));
