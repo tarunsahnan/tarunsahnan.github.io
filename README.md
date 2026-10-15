@@ -12,13 +12,13 @@ Open http://127.0.0.1:8765. No build step or package installation is needed.
 
 ## Files
 
-- `index.html`: semantic content, project cards, playground and dialogs.
-- `style.css`: responsive layout, illustrations and reduced-motion support.
-- `app.js`: draggable project map, project details, filters, simulations and command menu.
+- `index.html`: semantic content, interactive build note, field notes, project cards and dialogs.
+- `style.css`: responsive layout, editorial diagrams and reduced-motion support.
+- `app.js`: build-note tabs, project details, filters and command menu.
 - `Tarun-Sahnan-Full-Stack.pdf`: downloadable full-stack résumé.
 - `social-card.png`: link-sharing preview.
 
-Project details are defined in `projects` in `app.js`. The playground is an illustrative client-side simulation; it does not use private STAGE data or connect to production APIs.
+Project details are defined in `projects` in `app.js`. The build-note diagrams are simplified illustrations; they do not use private STAGE data or connect to production APIs.
 
 ## Verification
 
@@ -27,7 +27,7 @@ node --check app.js
 git diff --check
 ```
 
-Manually check desktop and mobile layouts, project map drag/reset, all project dialogs, filters, all three simulations, tab switching during a run, keyboard navigation, command search, résumé download and clipboard/share actions. Respect `prefers-reduced-motion`. This static repository has no dependency-based build or lint command.
+Manually check desktop and mobile layouts, all three build-note tabs and their case-note links, project dialogs, filters, field-note expanders, keyboard navigation, command search, résumé download and clipboard action. Respect `prefers-reduced-motion`. This static repository has no dependency-based build or lint command.
 
 ## Deployment
 
