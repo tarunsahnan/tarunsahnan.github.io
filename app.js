@@ -75,8 +75,7 @@ const commandDialog = $('#command-dialog');
 const commandSearch = $('#command-search');
 const commands = [
   { title: 'Read the work', detail: 'Selected systems', href: '#work' },
-  { title: 'How I work', detail: 'Product ownership', href: '#approach' },
-  { title: 'About Tarun', detail: 'Experience and approach', href: '#about' },
+  { title: 'About Tarun', detail: 'Experience and skills', href: '#about' },
   { title: 'See side projects', detail: 'Independent work', href: '#side-projects' },
   { title: 'Get in touch', detail: 'Email and links', href: '#contact' },
   { title: 'Read my résumé', detail: 'Full stack · PDF', href: 'Tarun-Sahnan-Full-Stack.pdf' },

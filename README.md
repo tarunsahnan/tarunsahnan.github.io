@@ -27,7 +27,7 @@ node --check app.js
 git diff --check
 ```
 
-Manually check desktop and mobile layouts, the expand/collapse stack interaction, all project dialogs, approach expanders, keyboard navigation, command search, résumé download and clipboard action. Respect `prefers-reduced-motion`. This static repository has no dependency-based build or lint command.
+Manually check the compact hero/work/about/contact layout on desktop and mobile, the expand/collapse stack interaction, all project dialogs, keyboard navigation, command search, résumé download and clipboard action. Respect `prefers-reduced-motion`. This static repository has no dependency-based build or lint command.
 
 ## Deployment
 
