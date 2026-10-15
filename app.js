@@ -3,7 +3,7 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const projects = {
-  agent: { title: 'One user. One agent.', kicker: 'STAGE / AI SYSTEMS / IN PROGRESS', intro: 'Building a system that gives every user a dedicated AI agent.', problem: 'Make recommendations that reflect a user’s own journey rather than a generic response.', decision: 'Build a dedicated agent path for each user. The architecture and product behaviour are still being developed.', ownership: 'Architecture and implementation end to end. This is current work at STAGE, extending my ownership from web products into AI agent systems.', stack: ['AI agents', 'System architecture', 'Backend engineering'], result: 'Currently in development. No shipped outcome to report yet.' },
+  agent: { title: 'One user. One agent.', kicker: 'STAGE / AI SYSTEMS / IN PROGRESS', intro: 'Building a recommendation system that gives every user a dedicated AI agent, shaped around their journey.', problem: 'Make recommendations that reflect a user’s own journey rather than a generic response.', decision: 'Build a dedicated agent path for each user. The architecture and product behaviour are still being developed.', ownership: 'I am the sole developer on 1U1A: product decisions, architecture and implementation end to end. This is current work at STAGE.', stack: ['AI agents', 'System architecture', 'Backend engineering'], result: 'Currently in development. No shipped outcome to report yet.' },
   campaign: { title: 'The in-house campaign engine.', kicker: 'STAGE / BACKEND + DATA + FRONTEND', intro: 'Built an alternative to CleverTap myself, from the campaign interface to the systems that execute campaigns.', problem: 'Third-party campaign tooling was costly and gave us less control over audience data and execution.', decision: 'Bring the path in-house: event ingestion, audience profiles, APIs and campaign execution connected as one system.', ownership: 'Frontend application, NestJS APIs, operational data, analytics events, audience profiles, Kafka consumers, Temporal workflows, authentication, testing and deployment.', stack: ['HTML + JavaScript SPA', 'Tailwind CSS', 'Node.js', 'TypeScript', 'NestJS', 'Express', 'PostgreSQL', 'ClickHouse', 'Kafka', 'Temporal', 'Docker Compose', 'Nginx', 'JWT', 'Jest + Supertest'], result: 'Reduced monthly tooling cost by ₹4 lakh while bringing event ingestion, audience data and campaign execution under our own control.' },
   web: { title: 'The STAGE web platform.', kicker: 'STAGE / FULL-STACK PRODUCT OWNERSHIP', intro: 'Solely developed the entire STAGE website frontend in Next.js App Router and own the systems around it.', problem: 'The first load was slow, and the web journey needed to carry users through to install or subscription.', decision: 'Treat rendering, caching, accessibility, testing and the conversion funnel as one product problem.', ownership: 'Architecture, routing, data fetching, SSR / SSG / ISR, accessibility, Cypress tests, performance, rollout and the web conversion funnel. Leading a team of three members and responding to web production incidents.', stack: ['Next.js', 'React', 'TypeScript', 'Node.js', 'Cypress', 'AWS', 'CDN caching', 'AppsFlyer', 'Meta CAPI'], result: 'Lighthouse performance improved from about 58 to 90; LCP from 7s to 3s. Web-to-app install conversion improved from 27% to 42%, and subscription rate doubled.' },
   video: { title: 'Video, on our own terms.', kicker: 'STAGE / VIDEO + INFRASTRUCTURE', intro: 'Built a self-hosted FFmpeg video-transcoding pipeline on bare-metal servers, replacing AWS MediaConvert.', problem: 'Video transcoding cost grew with the catalogue, while the migration could not interrupt playback.', decision: 'Move encoding to our own servers with gradual rollout, re-transcodes without downtime and health visibility.', ownership: 'The transcoding pipeline, no-downtime re-transcodes, gradual rollout by platform and a live ClickHouse health dashboard. Connecting backend execution with operational visibility.', stack: ['FFmpeg', 'HLS', 'H.264 / H.265', 'Bare-metal servers', 'ClickHouse', 'Video delivery'], result: 'Reduced transcoding cost by approximately 70%, with a controlled migration and visibility into system health.' },
@@ -23,7 +23,7 @@ function openProject(key) {
   $('#project-decision').textContent = project.decision;
   $('#project-ownership').textContent = project.ownership;
   $('#project-result').textContent = project.result;
-  $('#project-result-label').textContent = ['agent', 'sword', 'citovo'].includes(key) ? 'CURRENT STATUS' : 'THE OUTCOME';
+  $('#project-result-label').textContent = ['agent', 'sword', 'citovo'].includes(key) ? 'Current status' : 'The outcome';
   $('#project-stack').replaceChildren(...project.stack.map((name) => {
     const tag = document.createElement('span');
     tag.textContent = name;
@@ -34,10 +34,6 @@ function openProject(key) {
 }
 
 $$('[data-project]').forEach((button) => button.addEventListener('click', () => {
-  if (button.dataset.dragged === 'true') {
-    button.dataset.dragged = 'false';
-    return;
-  }
   openProject(button.dataset.project);
 }));
 $$('dialog').forEach((dialog) => {
@@ -48,47 +44,14 @@ $$('dialog').forEach((dialog) => {
   });
 });
 
-const buildNotes = {
-  web: { count: '01', title: 'Make the first visit count.', decision: 'Treat rendering, accessibility, performance and conversion as one product problem—not separate tickets.', operate: 'Owned the web platform through rollout and production incidents.' },
-  campaign: { count: '02', title: 'Bring the campaign path in-house.', decision: 'Build the interface, event pipeline, audience data and execution together instead of relying on a third-party tool.', operate: 'Owned the stack from APIs and data to testing and deployment.' },
-  video: { count: '03', title: 'Transcode without the hand-off.', decision: 'Move encoding to our own servers, with gradual rollout and health visibility built into the migration.', operate: 'Kept re-transcodes and system health observable after launch.' }
-};
-function selectBuildNote(key) {
-  const note = buildNotes[key];
-  $('#map-count').textContent = note.count;
-  $('#map-title').textContent = note.title;
-  $('#map-decision').textContent = note.decision;
-  $('#map-operate').textContent = note.operate;
-  $('#open-note').dataset.project = key;
-  $$('[data-note]').forEach((button) => {
-    const selected = button.dataset.note === key;
-    button.setAttribute('aria-pressed', String(selected));
-    button.classList.toggle('active', selected);
-  });
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) $('#map-detail').animate([{ opacity: .62, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 180, easing: 'ease-out' });
-}
-$$('[data-note]').forEach((button, index, buttons) => {
-  button.addEventListener('click', () => selectBuildNote(button.dataset.note));
-  button.addEventListener('keydown', (event) => {
-    const delta = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
-    if (!delta) return;
-    event.preventDefault();
-    const next = buttons[(index + delta + buttons.length) % buttons.length];
-    next.focus();
-    selectBuildNote(next.dataset.note);
-  });
+$('#stack-toggle').addEventListener('click', () => {
+  const expanded = $('#product-stack').classList.toggle('expanded');
+  $('#stack-toggle').setAttribute('aria-pressed', String(expanded));
+  $('#stack-toggle-label').textContent = expanded ? 'Bring it together' : 'Pull it apart';
+  $('#stack-description').textContent = expanded
+    ? 'Interface. Systems. Operations. All part of the product.'
+    : 'Good products connect the dots.';
 });
-
-$$('[data-filter]').forEach((button) => button.addEventListener('click', () => {
-  $$('[data-filter]').forEach((item) => {
-    const selected = item === button;
-    item.classList.toggle('active', selected);
-    item.setAttribute('aria-pressed', String(selected));
-  });
-  $$('[data-category]').forEach((card) => {
-    card.hidden = button.dataset.filter !== 'all' && !card.dataset.category.split(' ').includes(button.dataset.filter);
-  });
-}));
 
 let toastTimer;
 function toast(message) {
@@ -106,14 +69,13 @@ async function copyText(text, success) {
   }
 }
 $('.copy-email').addEventListener('click', () => copyText('tarunsahnan98@gmail.com', 'Email copied. Let’s make something good.'));
-$('#back-top').addEventListener('click', () => { location.hash = 'top'; });
 $('#year').textContent = String(new Date().getFullYear());
 
 const commandDialog = $('#command-dialog');
 const commandSearch = $('#command-search');
 const commands = [
   { title: 'Read the work', detail: 'Selected systems', href: '#work' },
-  { title: 'Read the field notes', detail: 'Engineering decisions', href: '#notes' },
+  { title: 'How I work', detail: 'Product ownership', href: '#approach' },
   { title: 'About Tarun', detail: 'Experience and approach', href: '#about' },
   { title: 'See side projects', detail: 'Independent work', href: '#side-projects' },
   { title: 'Get in touch', detail: 'Email and links', href: '#contact' },

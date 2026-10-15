@@ -3,84 +3,129 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#121715">
-  <title>Tarun Sahnan — Full Stack Engineer & Systems Builder</title>
-  <meta name="description" content="Tarun Sahnan is a full-stack engineer at STAGE. Notes on building and running web products, campaign systems, video infrastructure, and AI agents.">
-  <meta property="og:title" content="Tarun Sahnan — Full Stack Engineer">
-  <meta property="og:description" content="A closer look at the product decisions and systems behind my work at STAGE.">
+  <meta name="theme-color" content="#0c0e13">
+  <title>Tarun Sahnan — Full-stack Product Engineer</title>
+  <meta name="description" content="I build the whole thing. Tarun Sahnan, full-stack product engineer at STAGE. Web experiences, campaign systems, video infrastructure, and AI agents.">
+  <meta property="og:title" content="Tarun Sahnan — I build the whole thing.">
+  <meta property="og:description" content="Frontend roots. Full-stack ownership. A few products and systems I've taken from idea to production.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tarunsahnan.github.io/">
-  <meta property="og:image" content="https://tarunsahnan.github.io/social-card.png">
+  <meta property="og:image" content="https://tarunsahnan.github.io/social-card.png?v=product-studio">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://tarunsahnan.github.io/">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg?v=studio" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=outcome-owner">
-  <script src="app.js?v=outcome-owner" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=product-studio">
+  <script src="app.js?v=product-studio" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Tarun Sahnan, home"><span class="brand-mark">t<span>.</span>s</span><span>Tarun Sahnan<span class="brand-sub">FULL STACK ENGINEER</span></span></a>
-    <nav aria-label="Main navigation"><a href="#work">Work <span>01</span></a><a href="#notes">Notes <span>02</span></a><a href="#about">About <span>03</span></a><a href="#contact">Contact <span>04</span></a></nav>
-    <button class="command-trigger" aria-label="Open command menu"><span>Jump to</span><kbd>⌘ K</kbd></button>
+  <header class="site-header wrap">
+    <a class="brand" href="#top" aria-label="Tarun Sahnan, home">tarun<span class="brand-dot"></span><span class="brand-surname">sahnan</span></a>
+    <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#approach">Approach</a><a href="#about">About</a></nav>
+    <a class="nav-contact" href="#contact">Let’s talk <span aria-hidden="true">↗</span></a>
   </header>
   <main id="main">
     <section class="hero wrap" id="top">
-      <div class="hero-meta mono"><span><i class="status-dot"></i> CURRENTLY AT STAGE</span><span>INDIA <span class="muted">/</span> OPEN TO REMOTE</span></div>
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">TARUN SAHNAN / ENGINEERING NOTES</p>
-          <h1>I build it.<br>I <span class="whole">keep it<svg viewBox="0 0 430 35" aria-hidden="true"><path d="M6 25 Q180 -4 422 13 M27 32 Q230 6 401 23"/></svg></span><br>running<span class="orange">.</span></h1>
-          <p class="hero-description">I’m a full-stack product engineer at STAGE. I take a product problem from the first metric through the interface, API, data path and production rollout. <strong>The work doesn’t end at launch.</strong></p>
-          <div class="hero-actions"><a class="button primary" href="#work">Explore the work <span>↘</span></a><a class="text-link" href="Tarun-Sahnan-Full-Stack.pdf" target="_blank" rel="noopener">Full-stack résumé <span>↗</span></a></div>
-          <div class="hero-impact" aria-label="Selected shipped outcomes"><div><strong>27% → 42%</strong><span>web-to-app conversion</span></div><div><strong>₹4L / month</strong><span>tooling cost reduced</span></div><div><strong>~70%</strong><span>transcoding cost reduced</span></div></div>
-          <p class="hero-foot mono">3+ YEARS OF PRODUCT ENGINEERING <span>·</span> LEADING A TEAM OF 3</p>
-        </div>
-        <div class="build-note ownership-map" aria-label="Explore three shipped systems and their outcomes">
-          <div class="map-head mono"><span><i class="orange-dot"></i> THE OWNERSHIP MAP</span><span>PROBLEM → SYSTEM → OUTCOME</span></div>
-          <div class="map-axis mono" aria-hidden="true"><span>PRODUCT PROBLEM</span><span>WHAT I BUILT</span><span>WHAT CHANGED</span></div>
-          <div class="map-rows" role="group" aria-label="Select a system decision">
-            <button class="map-row active" data-note="web" aria-pressed="true" aria-controls="map-detail"><span class="map-problem"><small>01 / WEB</small><strong>First visit</strong></span><span class="map-system">Next.js + funnel</span><span class="map-outcome"><strong>27% → 42%</strong><small>conversion</small></span></button>
-            <button class="map-row" data-note="campaign" aria-pressed="false" aria-controls="map-detail"><span class="map-problem"><small>02 / CAMPAIGNS</small><strong>Campaign delivery</strong></span><span class="map-system">Data + execution</span><span class="map-outcome"><strong>₹4L / month</strong><small>cost reduced</small></span></button>
-            <button class="map-row" data-note="video" aria-pressed="false" aria-controls="map-detail"><span class="map-problem"><small>03 / VIDEO</small><strong>Encoding cost</strong></span><span class="map-system">FFmpeg + rollout</span><span class="map-outcome"><strong>~70%</strong><small>cost reduced</small></span></button>
+      <div class="hero-copy">
+        <p class="intro-label"><span class="status-dot"></span> Full-stack product engineer at STAGE</p>
+        <h1>I build the<br><em>whole thing.</em></h1>
+        <p class="hero-description">Frontend roots. Full-stack ownership.<br>I turn product problems into working systems, and stay responsible after they ship.</p>
+        <div class="hero-actions"><a class="button button-light" href="#work">Explore my work <span aria-hidden="true">↘</span></a><a class="text-link" href="Tarun-Sahnan-Full-Stack.pdf" target="_blank" rel="noopener">Get my résumé <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-person"><span class="person-mark" aria-hidden="true">ts.</span><p>Hey, I’m Tarun.<br><span>Based in India. Open to remote.</span></p></div>
+      </div>
+      <div class="hero-object" id="product-stack">
+        <div class="object-caption"><span>One product. Every layer.</span><span aria-hidden="true">↙</span></div>
+        <div class="stack-art" aria-hidden="true">
+          <div class="stack-shadow"></div>
+          <div class="stack-scene">
+            <div class="stack-layer layer-operations">
+              <div class="slab-heading"><span>03</span><b>OPERATIONS</b><i></i></div>
+              <div class="server-bays"><div><span></span><span></span><span></span><i></i></div><div><span></span><span></span><span></span><i></i></div><div><span></span><span></span><span></span><i></i></div></div>
+              <div class="slab-foot"><span>DEPLOY</span><span>OBSERVE</span><span>ITERATE</span></div>
+            </div>
+            <div class="stack-layer layer-systems">
+              <div class="slab-heading"><span>02</span><b>SYSTEMS</b><i></i></div>
+              <div class="service-flow"><span><b>↗</b>API</span><i>→</i><span><b>≋</b>EVENTS</span><i>→</i><span><b>⌁</b>DATA</span></div>
+              <div class="slab-foot"><span>CONNECTED BY DESIGN</span><span>→</span></div>
+            </div>
+            <div class="stack-layer layer-interface">
+              <div class="object-window-bar"><span><i></i><i></i><i></i></span><b>THE EXPERIENCE</b><span>↗</span></div>
+              <div class="object-window-body"><div><span>Made for people.</span><strong>Feels right.<br>Works right.</strong><span class="object-cta">Let’s go <b>↗</b></span></div><div class="object-symbol"><i></i><i></i><i></i></div></div>
+            </div>
           </div>
-          <div class="map-detail" id="map-detail" aria-live="polite"><div class="map-detail-label mono"><span>THE DECISION / <span id="map-count">01</span></span><span>SHIPPED + OPERATED</span></div><h2 id="map-title">Make the first visit count.</h2><p id="map-decision">Treat rendering, accessibility, performance and conversion as one product problem—not separate tickets.</p><div class="map-detail-bottom"><span id="map-operate">Owned the web platform through rollout and production incidents.</span><button id="open-note" data-project="web">Read the case ↗</button></div></div>
-          <div class="map-foot mono">SIMPLIFIED SYSTEM VIEWS · NO INTERNAL PRODUCT DATA</div>
+          <span class="layer-label label-interface">01 / Interface</span><span class="layer-label label-systems">02 / Systems</span><span class="layer-label label-operations">03 / Operations</span>
         </div>
+        <div class="object-controls"><button id="stack-toggle" aria-pressed="false" aria-controls="stack-description"><span class="expand-icon" aria-hidden="true">⤢</span><span id="stack-toggle-label">Pull it apart</span></button><p id="stack-description" aria-live="polite">Good products connect the dots.</p></div>
       </div>
-      <div class="hero-bottom mono"><span>SCROLL FOR THE DECISIONS BEHIND THE CODE</span><span>↓</span><span>WEB · DATA · INFRASTRUCTURE</span></div>
+      <div class="hero-bottom"><span>From the first click to the system behind it.</span><a href="#work" aria-label="Scroll to selected work">Scroll to explore <span aria-hidden="true">↓</span></a></div>
     </section>
-    <div class="stack-strip" aria-label="Core technologies"><span class="mono">TOOLS IN THE NOTES</span><div>React <i>·</i> Next.js <i>·</i> TypeScript <i>·</i> NestJS <i>·</i> PostgreSQL <i>·</i> ClickHouse <i>·</i> Kafka <i>·</i> Temporal</div></div>
+
     <section class="work-section wrap section" id="work">
-      <div class="section-heading"><div><p class="eyebrow">01 / SELECTED WORK</p><h2>Product problems.<br><em>Systems that held up.</em></h2></div><p>What I chose to build, what changed after it shipped, and what I kept owning in production.</p></div>
-      <div class="filters" role="group" aria-label="Filter work"><button class="active" data-filter="all" aria-pressed="true">All systems <span>05</span></button><button data-filter="frontend" aria-pressed="false">Frontend</button><button data-filter="backend" aria-pressed="false">Backend & data</button><button data-filter="ai" aria-pressed="false">AI systems</button><button data-filter="infra" aria-pressed="false">Infrastructure</button></div>
-      <div class="work-grid">
-        <article class="work-card outcome-feature" data-category="backend"><div class="card-visual campaign-visual" aria-hidden="true"><span class="visual-label mono">EVENT → AUDIENCE → ACTION</span><div class="pipeline"><span>EVENTS<br><b>Kafka</b></span><i>→</i><span>PROFILES<br><b>ClickHouse</b></span><i>→</i><span>EXECUTION<br><b>Temporal</b></span></div><div class="pipeline-bottom"><span>PostgreSQL</span><span>NestJS API</span><span>Campaigns ↗</span></div></div><div class="card-body"><div class="card-kicker mono"><span>01 / BACKEND & DATA</span><span>SHIPPED · STAGE</span></div><h3>A campaign stack<br>we own.</h3><p>I built the frontend, APIs, audience data, event pipeline, and campaign execution for our in-house CleverTap alternative.</p><div class="card-outcome"><span class="mono">THE OUTCOME</span><strong>₹4L / month</strong><small>tooling cost reduced</small></div><div class="card-end"><span>NestJS · Kafka · Temporal</span><button data-project="campaign" aria-label="Explore campaign engine">Read case note ↗</button></div></div></article>
-        <article class="work-card" data-category="frontend"><div class="card-visual web-visual" aria-hidden="true"><div class="mini-browser"><div class="browser-bar"><i></i><i></i><i></i><span>STAGE / WEB PLATFORM</span></div><div class="web-preview"><b>Stories.<br>Without borders.</b><div class="film-strips"><span></span><span></span><span></span></div></div></div><span class="score-badge mono">LIGHTHOUSE<br><b>58 → 90</b></span></div><div class="card-body"><div class="card-kicker mono"><span>02 / PRODUCT ENGINEERING</span><span>SHIPPED · STAGE</span></div><h3>The website is<br>a product.</h3><p>I built and run STAGE’s Next.js web platform: rendering, accessibility, testing, performance, and the conversion path.</p><div class="card-outcome"><span class="mono">THE OUTCOME</span><strong>27% → 42%</strong><small>web-to-app conversion</small></div><div class="card-end"><span>Next.js · React · TypeScript</span><button data-project="web" aria-label="Explore STAGE web platform">Read case note ↗</button></div></div></article>
-        <article class="work-card" data-category="infra backend"><div class="card-visual video-visual" aria-hidden="true"><span class="visual-label mono">SELF-HOSTED / BARE METAL</span><div class="video-art"><span class="source-file">.mov<span>↗</span></span><div class="encoder"><div class="encoder-bars"><i></i><i></i><i></i><i></i><i></i></div><b>FFmpeg</b></div><div class="renditions"><span>1080p</span><span>720p</span><span>480p</span></div></div><span class="visual-bottom mono">ONE SOURCE. EVERY SCREEN.</span></div><div class="card-body"><div class="card-kicker mono"><span>03 / VIDEO INFRASTRUCTURE</span><span>SHIPPED · STAGE</span></div><h3>Transcoding,<br>on our terms.</h3><p>I replaced AWS MediaConvert with a self-hosted FFmpeg pipeline, then built the rollout and health visibility around it.</p><div class="card-outcome"><span class="mono">THE OUTCOME</span><strong>~70%</strong><small>lower transcoding cost</small></div><div class="card-end"><span>FFmpeg · HLS · ClickHouse</span><button data-project="video" aria-label="Explore video transcoding pipeline">Read case note ↗</button></div></div></article>
-        <article class="wide-card" data-category="frontend infra"><span class="tv-icon" aria-hidden="true">▣</span><div><p class="eyebrow">04 / SAMSUNG + LG TV</p><h3>Same product, different screen.</h3><p>I built TV apps and OTA updates. The release cycle went from about two months to about two minutes.</p></div><strong class="wide-outcome">~2 min <small>release cycle</small></strong><button data-project="tv" aria-label="Explore TV applications">Read case note ↗</button></article>
-        <article class="work-card work-in-progress" data-category="ai backend"><div class="card-visual agent-visual" aria-hidden="true"><span class="visual-label mono">ONE USER. ONE AGENT.</span><div class="agent-pairs"><div><span>U₁</span><i></i><strong>✳</strong></div><div><span>U₂</span><i></i><strong>✳</strong></div><div><span>U₃</span><i></i><strong>✳</strong></div></div><div class="visual-bottom mono"><span>INDIVIDUAL USERS</span><span>DEDICATED AGENTS</span></div></div><div class="card-body"><div class="card-kicker mono"><span>05 / WHAT I’M BUILDING</span><span class="building">IN PROGRESS</span></div><h3>One agent<br>for each user.</h3><p>Currently building a one-user-one-agent system at STAGE. I’m responsible for the architecture and end-to-end implementation; this one is still in progress.</p><div class="card-outcome"><span class="mono">CURRENT STATUS</span><strong>Building now</strong><small>No shipped outcome to report yet</small></div><div class="card-end"><span>Architecture · AI agents · Backend</span><button data-project="agent" aria-label="Explore one-user-one-agent system">Read case note ↗</button></div></div></article>
+      <div class="section-heading"><div><p class="eyebrow">Selected work <span>2024 — now</span></p><h2>A few things I’ve<br>taken <em>all the way.</em></h2></div><p>Interfaces, infrastructure, and the decisions that connect them.</p></div>
+      <article class="campaign-feature">
+        <div class="feature-copy"><p class="project-label">01 / Campaign platform</p><h3>A campaign engine.<br>Built in-house.</h3><p>From the campaign interface to the data pipeline and execution. An end-to-end alternative to CleverTap, built by me.</p><div class="feature-result"><strong>₹4L<span>/mo</span></strong><span>less in tooling costs</span></div><button class="button button-dark" data-project="campaign">Explore the build <span aria-hidden="true">↗</span></button></div>
+        <div class="campaign-art" aria-hidden="true">
+          <div class="campaign-window">
+            <div class="window-top"><span class="studio-logo">s<span>●</span></span><strong>Campaign studio</strong><span class="window-avatar">TS</span></div>
+            <div class="studio-shell"><div class="studio-nav"><span class="studio-nav-active">◈</span><span>◉</span><span>⌁</span><span>▤</span><span class="studio-nav-bottom">⚙</span></div><div class="studio-main"><div class="studio-title"><div><span>WORKFLOW BUILDER</span><h4>The next right message.</h4></div><span class="draft-pill">Draft</span></div><div class="workflow-canvas"><div class="flow-card flow-event"><span class="flow-icon">↗</span><div><small>TRIGGER</small><b>Event received</b></div><span>⋯</span></div><div class="flow-connector"></div><div class="flow-card flow-audience"><span class="flow-icon">◎</span><div><small>AUDIENCE</small><b>Match a user profile</b></div><span>⋯</span></div><div class="flow-connector"></div><div class="flow-card flow-action"><span class="flow-icon">➤</span><div><small>ACTION</small><b>Schedule campaign</b></div><span>⋯</span></div></div><div class="studio-bottom"><span><i></i> Event → audience → action</span><b>Review workflow ↗</b></div></div></div>
+          </div>
+          <div class="floating-tech"><span>Kafka</span><i>→</i><span>ClickHouse</span><i>→</i><span>Temporal</span></div>
+        </div>
+        <span class="art-caption">Illustrative interface</span>
+      </article>
+      <div class="project-pair">
+        <article class="project project-web">
+          <button class="project-visual web-art" data-project="web" aria-label="Explore the STAGE web platform">
+            <span class="visual-tag">Web experience / STAGE</span>
+            <div class="web-window" aria-hidden="true"><div class="web-chrome"><b>STAGE<span>●</span></b><span>Stories from your world.</span><i>☰</i></div><div class="web-screen"><div class="scene-moon"></div><div class="scene-hill hill-back"></div><div class="scene-hill hill-front"></div><div class="scene-arch"></div><div class="scene-person"></div><div class="web-title"><small>अपनी बोली. अपनी कहानियाँ.</small><strong>A little closer<br>to home.</strong><span>▶ &nbsp; Find your next story</span></div></div><div class="web-poster-row"><span>Drama</span><span>Comedy</span><span>Stories</span></div></div>
+            <span class="visual-open" aria-hidden="true">↗</span><span class="visual-caption">Interface illustration</span>
+          </button>
+          <div class="project-heading"><div><p class="project-label">02 / Product engineering</p><h3>A streaming experience<br>that moves people.</h3></div><button class="circle-link" data-project="web" aria-label="Read STAGE web case study">↗</button></div>
+          <p class="project-description">Built and own the STAGE web platform: Next.js, performance, accessibility, and the journey from visitor to subscriber.</p>
+          <p class="project-proof"><strong>27% → 42%</strong><span>web-to-app conversion</span></p>
+        </article>
+        <article class="project project-video">
+          <button class="project-visual video-art" data-project="video" aria-label="Explore the video transcoding pipeline">
+            <span class="visual-tag">Video infrastructure / STAGE</span><div class="video-frames" aria-hidden="true"><div class="video-frame frame-one"><span>1080p</span><i>▶</i></div><div class="video-frame frame-two"><span>720p</span></div><div class="video-frame frame-three"><span>480p</span></div></div><span class="video-art-title" aria-hidden="true">One source.<br>Every screen.</span><span class="visual-open" aria-hidden="true">↗</span>
+          </button>
+          <div class="project-heading"><div><p class="project-label">03 / Video + infrastructure</p><h3>Our encoding.<br>Our terms.</h3></div><button class="circle-link" data-project="video" aria-label="Read video infrastructure case study">↗</button></div>
+          <p class="project-description">A self-hosted FFmpeg pipeline, with gradual rollout and a ClickHouse health dashboard.</p>
+          <p class="project-proof"><strong>~70%</strong><span>lower transcoding costs</span></p>
+        </article>
+      </div>
+      <article class="tv-project"><div class="tv-art" aria-hidden="true"><div><span>STAGE</span><i>▶</i></div><span></span></div><div><p class="project-label">04 / Samsung + LG TV</p><h3>The big screen.<br>A much shorter release cycle.</h3><p>Built the apps and the OTA updates that keep them moving.</p></div><div class="tv-result"><strong>2 months <span>→</span> ~2 min</strong><span>release cycle</span></div><button class="circle-link" data-project="tv" aria-label="Read TV apps case study">↗</button></article>
+    </section>
+
+    <section class="now-section wrap" id="now">
+      <div class="now-art" aria-hidden="true"><div class="agent-orbit orbit-back"></div><div class="agent-orbit orbit-front"></div><div class="user-token">u<span>1</span></div><div class="agent-token">a<span>1</span></div><span class="one-to-one">ONE TO ONE</span></div>
+      <div class="now-copy"><p class="eyebrow"><span class="status-dot"></span> Currently on my desk</p><h2>One user.<br><em>One agent.</em></h2><p>I’m the sole developer building 1U1A at STAGE: a recommendation system shaped around each user and their journey.</p><p class="now-note">From product decisions to architecture and implementation. Currently in development.</p><button class="text-link" data-project="agent">Inside the project <span aria-hidden="true">↗</span></button></div>
+    </section>
+
+    <section class="approach-section section wrap" id="approach">
+      <div class="approach-intro"><p class="eyebrow">How I work</p><h2>Own the problem.<br><em>Follow it through.</em></h2><p>I work as a product owner who writes code. The metric sets the direction; the stack follows.</p><span class="approach-signature">idea <span>↗</span> build <span>↗</span> learn</span></div>
+      <div class="approach-list">
+        <details open><summary><span>01</span><h3>Start with what should change.</h3><i aria-hidden="true">+</i></summary><p>I list the goal and tasks, set priorities, then look for the highest-impact work within the most important problems. Dependencies and production risks shape the order.</p></details>
+        <details><summary><span>02</span><h3>Go where the problem goes.</h3><i aria-hidden="true">+</i></summary><p>Sometimes that means a better React interface. Sometimes it means a NestJS API, a data pipeline, or a new way to transcode video. I work across those boundaries.</p></details>
+        <details><summary><span>03</span><h3>Stay for the part after launch.</h3><i aria-hidden="true">+</i></summary><p>Rollout, monitoring, production issues, and the metric we set out to change are part of the job. I use AI tools to move faster while owning the decisions and the result.</p></details>
       </div>
     </section>
-    <section class="notes-section section" id="notes"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">02 / FIELD NOTES</p><h2>The decision<br><em>is the work.</em></h2></div><p>Short notes on the tradeoffs behind the systems above. Open one to see what changed.</p></div>
-      <div class="decision-log">
-        <details open><summary><span class="mono">NOTE 01 / WEB</span><strong>Performance is a product feature.</strong><span aria-hidden="true">+</span></summary><div class="decision-body"><p><b>Problem</b> The first load was slow, and the web journey had to carry users through to install or subscription.</p><p><b>Decision</b> Work on rendering strategy, caching, accessibility, tests, and the funnel together—not as separate tickets.</p><p><b>Result</b> Lighthouse performance went from about 58 to 90, LCP from 7s to 3s, and web-to-app conversion from 27% to 42%.</p></div></details>
-        <details><summary><span class="mono">NOTE 02 / CAMPAIGNS</span><strong>Own the data path.</strong><span aria-hidden="true">+</span></summary><div class="decision-body"><p><b>Problem</b> Third-party campaign tooling was expensive and limited what we could control.</p><p><b>Decision</b> Build an in-house alternative: NestJS APIs, Kafka events, ClickHouse audience data, and Temporal execution.</p><p><b>Result</b> The platform reduced monthly tooling cost by ₹4 lakh.</p></div></details>
-        <details><summary><span class="mono">NOTE 03 / VIDEO</span><strong>A migration needs an escape hatch.</strong><span aria-hidden="true">+</span></summary><div class="decision-body"><p><b>Problem</b> Video transcoding costs added up as the catalogue grew.</p><p><b>Decision</b> Replace AWS MediaConvert with self-hosted FFmpeg, while building gradual rollout, re-transcodes without downtime, and health visibility.</p><p><b>Result</b> Approximately 70% lower transcoding cost.</p></div></details>
-        <details><summary><span class="mono">NOTE 04 / TV</span><strong>Release speed changes the product.</strong><span aria-hidden="true">+</span></summary><div class="decision-body"><p><b>Problem</b> TV releases could take around two months.</p><p><b>Decision</b> Build OTA updates into the Samsung and LG TV apps.</p><p><b>Result</b> Release time fell to about two minutes.</p></div></details>
-      </div>
-    </div></section>
-    <section class="side-section section wrap" id="side-projects"><div class="section-heading"><div><p class="eyebrow">OFF THE CLOCK</p><h2>Things I’m<br><em>building next.</em></h2></div><p>Independent projects, including two still in progress.</p></div><div class="side-list"><button class="side-row" data-project="sword"><span class="side-number mono">01</span><h3>SWORD</h3><p>A native desktop home for Claude Code.</p><span class="tag">BUILDING</span><span class="side-arrow">↗</span></button><button class="side-row" data-project="citovo"><span class="side-number mono">02</span><h3>Citovo</h3><p>From SEO audit to agent-ready action.</p><span class="tag">BUILDING</span><span class="side-arrow">↗</span></button><a class="side-row" href="https://inspex.in" target="_blank" rel="noopener"><span class="side-number mono">03</span><h3>Inspex</h3><p>Company intelligence for Indian businesses.</p><span class="tag">VISIT SITE</span><span class="side-arrow">↗</span></a><a class="side-row" href="https://examsankalp.in" target="_blank" rel="noopener"><span class="side-number mono">04</span><h3>Exam Sankalp</h3><p>Practice, mock tests and a better next attempt.</p><span class="tag">VISIT SITE</span><span class="side-arrow">↗</span></a></div></section>
-    <section class="about-section section wrap" id="about"><div class="about-note"><span class="mono">WORKING PRINCIPLE</span><div class="asterisk" aria-hidden="true">↳</div><p>Build it.<br>Observe it.<br>Keep it running.</p><span class="signature">01 → 02 → 03</span></div><div class="about-content"><p class="eyebrow">03 / ABOUT</p><h2>Hands-on,<br><em>across the stack.</em></h2><p>I’m Tarun Sahnan, a full-stack engineer at STAGE. I work across the product: interfaces people use, APIs that connect them, data systems that power them, and infrastructure that keeps them running.</p><p>I lead a team of three and stay hands-on. The projects I enjoy most cross a boundary—between design and engineering, or a product need and the system behind it.</p><div class="timeline"><div><span class="mono">2024 — NOW</span><div><h3>STAGE</h3><p>Software Engineer · Web, backend, infra & AI systems</p></div></div><div><span class="mono">2023 — 2024</span><div><h3>Liberin Technologies</h3><p>Software Engineer · Vue dashboards, Node.js APIs, UI systems</p></div></div><div><span class="mono">2022 — 2023</span><div><h3>Krishify</h3><p>Software Engineer Intern · React, commerce & AI chatbot</p></div></div></div><p class="education mono">B.TECH, COMPUTER SCIENCE · LPU · 2019–2023</p></div></section>
-    <section class="contact-section" id="contact"><div class="wrap"><div class="contact-top mono"><span><i class="status-dot"></i> OPEN TO FULL-STACK / PRODUCT ENGINEERING ROLES</span><button id="back-top">BACK TO TOP ↑</button></div><h2>Have a problem<br>worth <em>owning?</em><span>↗</span></h2><div class="contact-bottom"><div><a class="contact-email" href="mailto:tarunsahnan98@gmail.com">tarunsahnan98@gmail.com ↗</a><button class="copy-email mono">COPY EMAIL</button></div><div class="socials"><a href="https://www.linkedin.com/in/tarun-sahnan" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/tarunsahnan" target="_blank" rel="noopener">GitHub ↗</a><a href="Tarun-Sahnan-Full-Stack.pdf" target="_blank" rel="noopener">Résumé ↗</a></div></div></div></section>
+
+    <section class="side-section wrap" id="side-projects"><div class="side-heading"><p class="eyebrow">The side quests</p><h2>Still building<br><em>after hours.</em></h2></div><div class="side-list"><button class="side-row" data-project="sword"><span class="side-icon sword-icon" aria-hidden="true">↗</span><span><strong>SWORD</strong><small>A native desktop home for Claude Code.</small></span><span class="project-state">Building</span><span class="side-arrow" aria-hidden="true">↗</span></button><button class="side-row" data-project="citovo"><span class="side-icon citovo-icon" aria-hidden="true">c.</span><span><strong>Citovo</strong><small>From SEO audit to agent-ready action.</small></span><span class="project-state">Building</span><span class="side-arrow" aria-hidden="true">↗</span></button><a class="side-row" href="https://inspex.in" target="_blank" rel="noopener"><span class="side-icon inspex-icon" aria-hidden="true">i</span><span><strong>Inspex</strong><small>Company intelligence for Indian businesses.</small></span><span class="project-state">Visit site</span><span class="side-arrow" aria-hidden="true">↗</span></a><a class="side-row" href="https://examsankalp.in" target="_blank" rel="noopener"><span class="side-icon exam-icon" aria-hidden="true">e</span><span><strong>Exam Sankalp</strong><small>Practice, mock tests, and a better next attempt.</small></span><span class="project-state">Visit site</span><span class="side-arrow" aria-hidden="true">↗</span></a></div></section>
+
+    <section class="about-section section wrap" id="about">
+      <div class="about-heading"><p class="eyebrow">A little about me</p><h2>Curious by default.<br><em>Hands-on by choice.</em></h2></div>
+      <div class="about-grid"><div class="about-copy"><p>I’m Tarun, a software engineer at STAGE. I started with frontend, then kept following product problems into APIs, data, video infrastructure, and AI.</p><p>I lead a team of three and stay hands-on. I like understanding the whole product, making the tradeoffs, and seeing the work through.</p><div class="skills"><span>React & Next.js</span><span>TypeScript</span><span>Node.js & NestJS</span><span>Python</span><span>PostgreSQL</span><span>ClickHouse</span><span>Kafka & Temporal</span><span>Docker & AWS</span></div><a class="text-link" href="Tarun-Sahnan-Full-Stack.pdf" target="_blank" rel="noopener">The full story, in my résumé <span aria-hidden="true">↗</span></a></div><div class="timeline"><div><span>2024 — Now</span><div><h3>STAGE <i>↗</i></h3><p>Software Engineer</p><small>Web, backend, infrastructure & AI systems</small></div></div><div><span>2023 — 2024</span><div><h3>Liberin Technologies</h3><p>Software Engineer</p><small>Vue dashboards, Node.js APIs & UI systems</small></div></div><div><span>2022 — 2023</span><div><h3>Krishify</h3><p>Software Engineer Intern</p><small>React, commerce & AI chatbot</small></div></div><div class="education"><span>2019 — 2023</span><div><h3>Lovely Professional University</h3><p>B.Tech, Computer Science</p></div></div></div></div>
+    </section>
+
+    <section class="contact-section wrap" id="contact"><div class="contact-top"><p class="eyebrow"><span class="status-dot"></span> Open to full-stack & product engineering roles</p><span>India / Remote</span></div><div class="contact-main"><h2>Let’s build<br>something <em>good.</em></h2><a href="mailto:tarunsahnan98@gmail.com" class="contact-arrow" aria-label="Email Tarun"><span aria-hidden="true">↗</span></a></div><div class="contact-bottom"><div><a class="contact-email" href="mailto:tarunsahnan98@gmail.com">tarunsahnan98@gmail.com</a><button class="copy-email" aria-label="Copy Tarun's email address">Copy email <span aria-hidden="true">⧉</span></button></div><div class="socials"><a href="https://www.linkedin.com/in/tarun-sahnan" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/tarunsahnan" target="_blank" rel="noopener">GitHub ↗</a><a href="Tarun-Sahnan-Full-Stack.pdf" target="_blank" rel="noopener">Résumé ↗</a></div></div></section>
   </main>
-  <footer class="wrap mono"><span>© <span id="year">2026</span> TARUN SAHNAN</span><span>BUILT BY THE PERSON ON THIS PAGE.</span><button class="command-trigger">PRESS <kbd>⌘ K</kbd> TO JUMP</button></footer>
-  <dialog id="project-dialog" aria-labelledby="project-title"><button class="dialog-close" aria-label="Close project details">×</button><div class="project-detail"><p class="eyebrow" id="project-kicker"></p><h2 id="project-title"></h2><p id="project-intro" class="project-intro"></p><div class="case-result" id="project-result-block"><span class="mono" id="project-result-label">THE OUTCOME</span><p id="project-result"></p></div><div class="detail-block"><h3>The problem</h3><p id="project-problem"></p></div><div class="detail-block"><h3>The decision</h3><p id="project-decision"></p></div><div class="detail-block"><h3>What I own</h3><p id="project-ownership"></p></div><div class="detail-block"><h3>Under the hood</h3><div id="project-stack" class="detail-stack"></div></div><a class="button primary" href="mailto:tarunsahnan98@gmail.com">Let’s talk about the details ↗</a><span class="mono detail-disclaimer">CONCEPTUAL VISUALS · NO INTERNAL PRODUCT DATA</span></div></dialog>
-  <dialog id="command-dialog" aria-labelledby="command-title"><div class="command-head"><h2 id="command-title">Where to?</h2><button class="dialog-close" aria-label="Close command menu">ESC</button></div><input id="command-search" type="search" placeholder="Search work, notes, contact…" aria-label="Search navigation"><div id="command-results"></div><p class="mono command-hint">↑ ↓ TO MOVE · ENTER TO GO · ESC TO CLOSE</p></dialog>
-  <div class="toast mono" id="toast" role="status" aria-live="polite"></div>
-  <noscript><p class="no-js">Project descriptions and field notes are available above. Enable JavaScript to explore the ownership map and use the command menu.</p></noscript>
+  <footer class="wrap"><span>© <span id="year">2026</span> Tarun Sahnan</span><button class="command-trigger">Quick navigation <kbd>⌘ K</kbd></button><a href="#top">Back to top ↑</a></footer>
+  <dialog id="project-dialog" aria-labelledby="project-title"><button class="dialog-close" aria-label="Close project details">×</button><div class="project-detail"><p class="eyebrow" id="project-kicker"></p><h2 id="project-title"></h2><p id="project-intro" class="project-intro"></p><div class="case-result"><span id="project-result-label">The outcome</span><p id="project-result"></p></div><div class="detail-block"><h3>The problem</h3><p id="project-problem"></p></div><div class="detail-block"><h3>The decision</h3><p id="project-decision"></p></div><div class="detail-block"><h3>What I own</h3><p id="project-ownership"></p></div><div class="detail-block"><h3>Under the hood</h3><div id="project-stack" class="detail-stack"></div></div><a class="button button-light" href="mailto:tarunsahnan98@gmail.com">Let’s talk about the details <span aria-hidden="true">↗</span></a></div></dialog>
+  <dialog id="command-dialog" aria-labelledby="command-title"><div class="command-head"><h2 id="command-title">Where to?</h2><button class="dialog-close" aria-label="Close command menu">×</button></div><input id="command-search" type="search" placeholder="Search work, projects, contact…" aria-label="Search navigation"><div id="command-results"></div><p class="command-hint">↑ ↓ to move · Enter to go · Esc to close</p></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="no-js">All project summaries are available above. Enable JavaScript for project details and the interactive stack.</p></noscript>
 </body>
 </html>
