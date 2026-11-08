@@ -1,24 +1,29 @@
 # Tarun Sahnan — Full-stack Product Engineer
 
-Personal portfolio with two views of the same content:
+Personal portfolio. The classic one-page site is the HTML itself (what search
+engines and no-JS visitors get). JavaScript then mounts an agent view on top:
 
-- **Agent view (default):** `tarun.sh`, a *scripted* chat agent. It auto-asks
-  "Who is Tarun Sahnan?", shows tool-call steps, then streams an answer with
-  metric chips, diagram/timeline/project "artifacts" and follow-up chips.
-  Visitors can click chips or type; typed questions are matched to topics by
-  keywords, and unknown questions get an honest fallback. There is no LLM,
-  no API key, no network call and no tracking. Every answer is hand-written
-  in `app.js` from Tarun's real work.
-- **Classic view:** the full page in one scroll (`?view=classic`, the
-  "Classic view" button, or `V`). This is also what renders without JS, so
-  all content is in the HTML for SEO.
+- **ask tarun (agent view, default with JS):** a *scripted* chat agent. The first
+  visit auto-asks "Who is Tarun Sahnan?", shows tool steps, then streams an answer
+  with metric tiles, artifacts (diagrams, timeline, project card) and follow-up
+  chips. Returning visitors get the answer instantly. On wide screens, artifacts
+  open in a right-hand workspace panel next to the chat.
+- Visitors can click topics, type a question (keyword-matched; unknown questions
+  get an honest fallback), or **paste a job description**: `match_jd()` checks it
+  against an explicit skill dictionary in `app.js` (`EVIDENCE`, `GAPS`) and shows
+  evidence with links to proof, plus what is not on his record. Plain keyword
+  matching, all in the browser.
+- Every answer has **Copy link** (`?q=backend|ai|frontend|inspex|experience|stack|contact|why|jd`)
+  and **View source** (the hand-written data behind it).
+- No LLM, no API keys, no network calls, no tracking.
+- **Classic view:** `?view=classic`, the "Classic view" button, or `V`.
 
-Light and dark themes follow the system; toggle with the button or `T`.
-Keys: `/` focus the composer, `Esc` skip the animation, `V` switch view.
-Animations are skipped under `prefers-reduced-motion`.
+Keys: `/` ask, `Esc` skip, `V` switch view, `T` theme (ignored while typing).
+Light/dark follow the system. Reduced motion renders answers instantly.
+Debug params: `?theme=light|dark`, `?state=typing|tools|stream|done`.
 
-Debug and preview params: `?theme=light|dark`, `?view=agent|classic`,
-`?state=typing|tools|stream|done` (freezes the intro at that point).
+Résumé: there is no PDF in the repo. A commented-out link in the classic hero
+marks where to add one.
 
 ## Local preview
 
@@ -36,7 +41,6 @@ Then open http://127.0.0.1:8765.
 - `style.css`: layout, theme tokens, responsive rules, reduced-motion support.
 - `app.js`: the scripted agent (topics, keyword matching, streaming, tool-call UI), view and theme switching, copy-email.
 - `favicon.svg`, `social-card.png`: icon and link preview (1200×630).
-- `Tarun-Sahnan-Full-Stack.pdf`: older résumé, not linked from the page.
 
 Diagrams are simplified illustrations of what each system does; they show no internals or private data.
 
