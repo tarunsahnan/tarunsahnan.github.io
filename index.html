@@ -28,15 +28,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
-    /* set theme before paint: ?theme= (for previews) > saved choice > system */
+    /* before paint: theme (?theme= > saved > system) and view (?view= > saved > agent) */
     (function () {
-      var t = null;
-      try { t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('theme'); } catch (e) {}
-      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      var d = document.documentElement, q, t = null, v = null;
+      d.className += ' js';
+      try { q = new URLSearchParams(location.search); t = q.get('theme') || localStorage.getItem('theme'); v = q.get('view') || localStorage.getItem('view'); } catch (e) {}
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+      d.setAttribute('data-view', v === 'classic' ? 'classic' : 'agent');
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=2">
-  <script src="app.js?v=2" defer></script>
+  <link rel="stylesheet" href="style.css?v=3">
+  <script src="app.js?v=3" defer></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Tarun Sahnan","jobTitle":"Full-stack Product Engineer","address":{"@type":"PostalAddress","addressLocality":"Noida","addressCountry":"IN"},"email":"mailto:tarunsahnan98@gmail.com","url":"https://tarunsahnan.github.io/","sameAs":["https://www.linkedin.com/in/tarun-sahnan","https://github.com/tarunsahnan"],"alumniOf":"Lovely Professional University"}
   </script>
@@ -44,6 +46,55 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
+  <div class="app" id="app">
+    <aside class="side" aria-label="Agent">
+      <div class="brand">
+        <span class="mark" aria-hidden="true"><span class="mark-core"></span></span>
+        <div><p class="brand-name">tarun.sh</p><p class="brand-sub">An agent that knows Tarun's work</p></div>
+      </div>
+      <button type="button" class="side-new" id="restart"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>New chat</button>
+      <p class="side-label">Ask about</p>
+      <ul class="side-topics" id="side-topics"></ul>
+      <div class="side-foot">
+        <ul class="side-links">
+          <li><a href="mailto:tarunsahnan98@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/tarun-sahnan" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/tarunsahnan" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+        <p class="side-keys"><kbd>/</kbd> ask <kbd>V</kbd> classic view <kbd>T</kbd> theme</p>
+      </div>
+    </aside>
+
+    <div class="chat">
+      <header class="chat-top">
+        <div class="chat-id"><span class="mark mark-sm" aria-hidden="true"><span class="mark-core"></span></span><span class="chat-title">tarun.sh</span></div>
+        <div class="chat-actions">
+          <button type="button" class="view-btn" data-view="classic" title="Show everything on one page (V)">Classic view</button>
+          <button class="theme theme-btn" type="button" aria-label="Switch colour theme" title="Switch theme (T)">
+            <svg class="i-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="i-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="thread" id="thread" aria-label="Conversation" aria-busy="false"></main>
+
+      <div class="dock">
+        <div class="dock-inner">
+          <button type="button" class="skip-run" id="skip-run" hidden>Skip <kbd>Esc</kbd></button>
+          <form class="composer" id="composer" autocomplete="off">
+            <label class="sr-only" for="ask">Ask about Tarun</label>
+            <input id="ask" name="ask" type="text" placeholder="Ask about Tarun's work…" maxlength="160" enterkeyhint="send">
+            <kbd class="slash" aria-hidden="true">/</kbd>
+            <button type="submit" class="send" aria-label="Send"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </form>
+          <p class="dock-note">Scripted agent: every answer comes from Tarun's real work. No LLM, no tracking. <button type="button" class="linkish" data-view="classic">Prefer one page?</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="classic" id="classic">
   <header class="top">
     <div class="col top-inner">
       <a class="name" href="#main">Tarun Sahnan</a>
@@ -53,7 +104,8 @@
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="theme" type="button" id="theme" aria-label="Switch colour theme" title="Switch theme (T)">
+      <button class="view-btn js-only" type="button" data-view="agent" title="Switch to the agent view (V)">Agent view</button>
+      <button class="theme theme-btn" type="button" id="theme" aria-label="Switch colour theme" title="Switch theme (T)">
         <svg class="i-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         <svg class="i-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
       </button>
@@ -161,7 +213,7 @@
 
         <figure class="diagram">
           <svg class="d-wide" viewBox="0 0 640 282" role="img" aria-labelledby="d2-t">
-            <title id="d2-t">Before: every upload went through our server to S3 and then to Meta, one at a time. After: the browser uploads straight to S3 with a presigned URL, and the ad networks get a 10-minute presigned link, in parallel.</title>
+            <title id="d2-t">Before: every upload went through our server to S3 and then to Meta, one at a time. After: the browser uploads straight to S3 with a presigned URL, Meta gets a 10-minute presigned link, and promos are processed in parallel.</title>
             <text class="tag" x="20" y="22">Before · one at a time</text>
             <g class="edges muted-edges">
               <path d="M130 56 H190"/><path d="M310 56 H370"/><path d="M450 56 H510"/>
@@ -175,24 +227,26 @@
             <line class="rule" x1="20" y1="120" x2="620" y2="120"/>
 
             <text class="tag accent-t" x="20" y="146">After · parallel</text>
-            <g class="edges">
-              <path d="M130 210 H220"/>
-              <path class="flow" d="M130 210 H220"/>
-              <path d="M300 210 C 380 210, 390 166, 460 166"/>
-              <path d="M300 210 H460"/>
-              <path d="M300 210 C 380 210, 390 254, 460 254"/>
-              <path class="flow" d="M300 210 C 380 210, 390 166, 460 166"/>
-              <path class="flow f2" d="M300 210 H460"/>
-              <path class="flow f3" d="M300 210 C 380 210, 390 254, 460 254"/>
-            </g>
-            <g class="node"><rect x="20" y="190" width="110" height="40" rx="8"/><text x="75" y="215">Upload</text></g>
-            <g class="node accent"><rect x="220" y="190" width="80" height="40" rx="8"/><text x="260" y="215">S3</text></g>
-            <g class="node"><rect x="460" y="150" width="130" height="32" rx="8"/><text x="525" y="171">Meta</text></g>
-            <g class="node"><rect x="460" y="194" width="130" height="32" rx="8"/><text x="525" y="215">Google</text></g>
-            <g class="node"><rect x="460" y="238" width="130" height="32" rx="8"/><text x="525" y="259">Snapchat</text></g>
+            <text class="edge-label" x="160" y="158">presigned upload</text>
+            <text class="edge-label" x="325" y="158">10-min link</text>
+            <g class="edges"><path d="M120 180 H200"/><path d="M270 180 H380"/><path class="flow" d="M120 180 H200"/><path class="flow" d="M270 180 H380"/></g>
+            <g class="node"><rect x="20" y="165" width="100" height="30" rx="8"/><text x="70" y="185">Promo 1</text></g>
+            <g class="node accent"><rect x="200" y="165" width="70" height="30" rx="8"/><text x="235" y="185">S3</text></g>
+            <g class="node"><rect x="380" y="165" width="110" height="30" rx="8"/><text x="435" y="185">Meta</text></g>
+            <g class="edges"><path d="M120 218 H200"/><path d="M270 218 H380"/><path class="flow f2" d="M120 218 H200"/><path class="flow f2" d="M270 218 H380"/></g>
+            <g class="node"><rect x="20" y="203" width="100" height="30" rx="8"/><text x="70" y="223">Promo 2</text></g>
+            <g class="node accent"><rect x="200" y="203" width="70" height="30" rx="8"/><text x="235" y="223">S3</text></g>
+            <g class="node"><rect x="380" y="203" width="110" height="30" rx="8"/><text x="435" y="223">Meta</text></g>
+            <g class="edges"><path d="M120 256 H200"/><path d="M270 256 H380"/><path class="flow f3" d="M120 256 H200"/><path class="flow f3" d="M270 256 H380"/></g>
+            <g class="node"><rect x="20" y="241" width="100" height="30" rx="8"/><text x="70" y="261">Promo 3</text></g>
+            <g class="node accent"><rect x="200" y="241" width="70" height="30" rx="8"/><text x="235" y="261">S3</text></g>
+            <g class="node"><rect x="380" y="241" width="110" height="30" rx="8"/><text x="435" y="261">Meta</text></g>
+            <text class="note" x="512" y="208">then draft ads on</text>
+            <text class="note" x="512" y="226">Meta, Google</text>
+            <text class="note" x="512" y="244">and Snapchat</text>
           </svg>
           <svg class="d-narrow" viewBox="0 0 320 250" role="img" aria-labelledby="d2n-t">
-            <title id="d2n-t">Before: upload, our server, S3, Meta, one at a time. After: upload straight to S3, then Meta, Google and Snapchat in parallel.</title>
+            <title id="d2n-t">Before: upload, our server, S3, Meta, one at a time. After: several promos at once, each going straight to S3 and then to Meta through a presigned link.</title>
             <text class="tag" x="4" y="14">Before · one at a time</text>
             <g class="edges muted-edges"><path d="M72 44 H86"/><path d="M166 44 H180"/><path d="M230 44 H244"/></g>
             <g class="node"><rect x="4" y="26" width="68" height="36" rx="8"/><text x="38" y="48">Upload</text></g>
@@ -202,18 +256,20 @@
             <text class="note" x="4" y="84">~2 min each · ~20 min average wait</text>
             <line class="rule" x1="4" y1="102" x2="316" y2="102"/>
             <text class="tag accent-t" x="4" y="126">After · parallel</text>
-            <g class="edges">
-              <path d="M72 196 H100"/><path class="flow" d="M72 196 H100"/>
-              <path d="M156 196 C 186 196, 186 156, 212 156"/><path d="M156 196 H212"/><path d="M156 196 C 186 196, 186 236, 212 236"/>
-              <path class="flow" d="M156 196 C 186 196, 186 156, 212 156"/><path class="flow f2" d="M156 196 H212"/><path class="flow f3" d="M156 196 C 186 196, 186 236, 212 236"/>
-            </g>
-            <g class="node"><rect x="4" y="178" width="68" height="36" rx="8"/><text x="38" y="200">Upload</text></g>
-            <g class="node accent"><rect x="100" y="178" width="56" height="36" rx="8"/><text x="128" y="200">S3</text></g>
-            <g class="node"><rect x="212" y="140" width="104" height="32" rx="8"/><text x="264" y="161">Meta</text></g>
-            <g class="node"><rect x="212" y="180" width="104" height="32" rx="8"/><text x="264" y="201">Google</text></g>
-            <g class="node"><rect x="212" y="220" width="104" height="28" rx="8"/><text x="264" y="239">Snapchat</text></g>
+            <g class="edges"><path d="M78 154 H118"/><path d="M178 154 H218"/><path class="flow" d="M78 154 H118"/><path class="flow" d="M178 154 H218"/></g>
+            <g class="node"><rect x="4" y="140" width="74" height="28" rx="8"/><text x="41" y="159">Promo 1</text></g>
+            <g class="node accent"><rect x="118" y="140" width="60" height="28" rx="8"/><text x="148" y="159">S3</text></g>
+            <g class="node"><rect x="218" y="140" width="98" height="28" rx="8"/><text x="267" y="159">Meta</text></g>
+            <g class="edges"><path d="M78 192 H118"/><path d="M178 192 H218"/><path class="flow f2" d="M78 192 H118"/><path class="flow f2" d="M178 192 H218"/></g>
+            <g class="node"><rect x="4" y="178" width="74" height="28" rx="8"/><text x="41" y="197">Promo 2</text></g>
+            <g class="node accent"><rect x="118" y="178" width="60" height="28" rx="8"/><text x="148" y="197">S3</text></g>
+            <g class="node"><rect x="218" y="178" width="98" height="28" rx="8"/><text x="267" y="197">Meta</text></g>
+            <g class="edges"><path d="M78 230 H118"/><path d="M178 230 H218"/><path class="flow f3" d="M78 230 H118"/><path class="flow f3" d="M178 230 H218"/></g>
+            <g class="node"><rect x="4" y="216" width="74" height="28" rx="8"/><text x="41" y="235">Promo 3</text></g>
+            <g class="node accent"><rect x="118" y="216" width="60" height="28" rx="8"/><text x="148" y="235">S3</text></g>
+            <g class="node"><rect x="218" y="216" width="98" height="28" rx="8"/><text x="267" y="235">Meta</text></g>
           </svg>
-          <figcaption>The browser uploads straight to S3 with a presigned URL, and each ad network fetches the file through a 10-minute presigned link. Files skip our server entirely.</figcaption>
+          <figcaption>Uploads go from the browser straight to S3 with a presigned URL, and Meta gets a 10-minute presigned link instead of the file. Promos are processed in parallel, and draft ads are created on Meta, Google and Snapchat.</figcaption>
         </figure>
 
         <dl class="story">
@@ -397,6 +453,8 @@
     <span>© <span id="year">2026</span> Tarun Sahnan</span>
     <span class="hint">Press <kbd>T</kbd> to switch theme</span>
   </footer>
+
+</div><!-- /classic -->
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
