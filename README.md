@@ -1,34 +1,35 @@
-# Tarun Sahnan — Full Stack Engineer
+# Tarun Sahnan — Full-stack Product Engineer
 
-A dependency-free, interactive portfolio hosted on GitHub Pages.
+Personal portfolio, styled as a streaming title page: career chapters are
+**seasons**, case studies are **episodes**, side projects are **originals** and
+skills are the **credits**. Static HTML/CSS/vanilla JS on GitHub Pages, no build
+step, no dependencies (fonts from Google Fonts).
 
 ## Local preview
 
+Open `index.html` directly in a browser, or serve the folder:
+
 ```sh
-python3 -m http.server 8765 --bind 127.0.0.1
+python -m http.server 8765 --bind 127.0.0.1
 ```
 
-Open http://127.0.0.1:8765. No build step or package installation is needed.
+Then open http://127.0.0.1:8765.
 
 ## Files
 
-- `index.html`: portfolio content, interactive product stack, project showcases and dialogs.
-- `style.css`: responsive layout, CSS product illustrations and reduced-motion support.
-- `app.js`: stack interaction, project details, clipboard action and command menu.
-- `Tarun-Sahnan-Full-Stack.pdf`: downloadable full-stack résumé.
-- `social-card.png`: link-sharing preview.
+- `index.html`: all content (hero, episodes, seasons, originals, credits, contact).
+- `style.css`: layout, theme tokens, responsive rules, reduced-motion support.
+- `app.js`: season tabs, scroll reveal, "up next" countdown, copy-email, keyboard "remote" (`?`, `j`/`k`, `s`, `1`–`4`, `e`).
+- `favicon.svg`, `social-card.png`: icon and link preview (1200×630).
+- `Tarun-Sahnan-Full-Stack.pdf`: older résumé, not linked from the page.
 
-Project details are defined in `projects` in `app.js`. Product visuals are simplified illustrations; they do not use private STAGE data or connect to production APIs.
+Episode thumbnails and the Inspex mock are hand-drawn SVG/CSS illustrations, not screenshots, and use no private data.
 
-## Verification
+## Checks
 
 ```sh
 node --check app.js
 git diff --check
 ```
 
-Manually check the compact hero/work/about/contact layout on desktop and mobile, the expand/collapse stack interaction, all project dialogs, keyboard navigation, command search, résumé download and clipboard action. Respect `prefers-reduced-motion`. This static repository has no dependency-based build or lint command.
-
-## Deployment
-
-GitHub Pages publishes the repository root from `main`. Changes go through a feature branch and pull request.
+Check desktop and 360px mobile (no horizontal scroll), keyboard focus, season tabs (arrow keys), the `?` dialog, and `prefers-reduced-motion`.
