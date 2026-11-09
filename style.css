@@ -409,11 +409,28 @@ html[data-view="agent"] .app { display: grid; grid-template-columns: 236px minma
 .src { margin: 0 0 var(--s3); max-height: 320px; overflow: auto; padding: var(--s3) var(--s4); background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; font: 400 12px/1.55 var(--mono); color: var(--fg-2); white-space: pre-wrap; overflow-wrap: anywhere; }
 
 /* follow-ups: wrap, never clip */
-.follow { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s2); }
-.fchip { display: inline-flex; align-items: center; gap: 6px; font: 400 var(--t-sm)/1.2 var(--sans); color: var(--fg-2); background: transparent; border: 1px solid var(--line-2); border-radius: 999px; padding: 7px 12px; cursor: pointer; text-align: left; transition: color .15s, border-color .15s, background .15s; }
-.fchip span { color: var(--fg-3); }
-.fchip:hover { color: var(--fg); border-color: var(--fg-3); background: var(--surface); }
-.fchip-jd { border-style: dashed; border-color: color-mix(in srgb, var(--accent) 50%, var(--line-2)); }
+/* "pick one" question card (Claude-style) */
+.qcard { margin-top: var(--s4); border: 1px solid var(--line-2); border-radius: 14px; background: var(--surface); padding: var(--s3); box-shadow: 0 1px 2px rgba(0, 0, 0, .03); }
+.qcard-h { margin: 2px 4px var(--s2); font: 500 var(--t-sm)/1.3 var(--sans); color: var(--fg); }
+.qcard-list { display: grid; gap: 4px; }
+.qopt { display: grid; grid-template-columns: 26px 1fr auto; grid-template-areas: "k t g" "k d g"; column-gap: 10px; align-items: center; width: 100%; text-align: left; font: inherit; color: var(--fg); background: transparent; border: 1px solid transparent; border-radius: 10px; padding: 9px 10px; cursor: pointer; transition: background .15s, border-color .15s; }
+.qopt kbd { grid-area: k; align-self: start; margin-top: 1px; display: inline-grid; place-items: center; width: 22px; height: 22px; border: 1px solid var(--line-2); border-radius: 6px; font: 500 12px/1 var(--mono, ui-monospace, monospace); color: var(--fg-3); background: var(--bg); }
+.qopt-t { grid-area: t; font: 500 var(--t-sm)/1.35 var(--sans); }
+.qopt-d { grid-area: d; font: 400 13px/1.35 var(--sans); color: var(--fg-3); }
+.qopt-go { grid-area: g; color: var(--fg-3); opacity: 0; transform: translateX(-4px); transition: opacity .15s, transform .15s; }
+.qopt:hover, .qopt:focus-visible { background: var(--bg); border-color: var(--line-2); outline: none; }
+.qopt:hover .qopt-go, .qopt:focus-visible .qopt-go { opacity: 1; transform: none; }
+.qopt:hover kbd, .qopt:focus-visible kbd { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--line-2)); }
+.qopt-jd .qopt-t::after { content: "new"; margin-left: 8px; padding: 1px 6px; border-radius: 999px; font-size: 11px; font-weight: 500; color: var(--accent); background: var(--accent-soft); vertical-align: 1px; }
+.qcard-f { margin: var(--s2) 4px 2px; font-size: 12.5px; color: var(--fg-3); }
+.qcard.answered { padding: 6px var(--s3); background: transparent; box-shadow: none; }
+.qcard.answered .qcard-h, .qcard.answered .qcard-f, .qcard.answered .qopt:not(.picked), .qcard.skipped { display: none; }
+.qcard.answered .qopt.picked { cursor: default; padding: 4px 0; background: none; border: 0; }
+.qcard.answered .qopt.picked .qopt-d, .qcard.answered .qopt.picked .qopt-go { display: none; }
+.qcard.answered .qopt.picked kbd { border: 0; background: none; color: var(--accent); font-size: 0; }
+.qcard.answered .qopt.picked kbd::before { content: "✓"; font-size: 14px; }
+.qcard.answered .qopt.picked .qopt-t { color: var(--fg-2); font-weight: 400; }
+@media (hover: none) { .qopt kbd { display: none; } .qopt { grid-template-columns: 1fr auto; grid-template-areas: "t g" "d g"; } .qopt-go { opacity: 1; transform: none; } }
 
 /* dock + composer */
 .dock { position: sticky; bottom: 0; z-index: 10; padding: var(--s5) var(--s5) var(--s3); background: linear-gradient(to bottom, transparent, var(--bg) 38%); }

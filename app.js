@@ -158,7 +158,7 @@
         ] },
         { artifact: 'agent' }
       ],
-      follow: ['ai', 'backend', 'jd', 'inspex', 'experience', 'contact']
+      follow: ['ai', 'backend', 'jd', 'inspex', 'contact']
     },
     ai: {
       q: 'What has he built with AI?', side: 'AI work', chip: 'What has he built with AI?',
@@ -680,21 +680,54 @@
     body.append(f, pre);
   };
 
+  // one-line hint under each suggested question in the picker
+  const DESC = {
+    who: 'The short version, with numbers',
+    ai: '1U1A, agentic paywall, AI ad copy',
+    backend: 'Campaign platform, promo pipeline, auto-login',
+    frontend: 'STAGE website and the TV app rewrite',
+    inspex: 'His own live product, built solo',
+    experience: 'Roles and dates, 2022 to now',
+    skills: 'Grouped by what each tool is for',
+    contact: 'Email, LinkedIn, GitHub',
+    why: 'Four points, each backed by his work',
+    jd: 'Paste a JD, see what matches and what is missing'
+  };
+
+  // Claude-style "pick one" card: numbered options, keys 1–N select, typing stays open
   const followUps = (body, keys) => {
-    const d = el('div', 'follow pop');
+    const d = el('div', 'qcard pop');
     d.setAttribute('role', 'group');
-    d.setAttribute('aria-label', 'Suggested questions');
-    keys.forEach((k) => {
-      const b = el('button', 'fchip' + (k === 'jd' ? ' fchip-jd' : ''));
+    d.setAttribute('aria-labelledby', 'qh' + runId);
+    const h = el('p', 'qcard-h', 'What would you like to know next?');
+    h.id = 'qh' + runId;
+    const list = el('div', 'qcard-list');
+    keys.forEach((k, i) => {
+      const b = el('button', 'qopt' + (k === 'jd' ? ' qopt-jd' : ''));
       b.type = 'button';
       b.dataset.topic = k;
-      b.innerHTML = '<span aria-hidden="true">↳</span> ';
-      b.append(T[k].chip);
-      d.append(b);
+      b.innerHTML = `<kbd aria-hidden="true">${i + 1}</kbd><span class="qopt-t"></span><span class="qopt-d"></span><span class="qopt-go" aria-hidden="true">→</span>`;
+      b.querySelector('.qopt-t').textContent = T[k].chip;
+      b.querySelector('.qopt-d').textContent = DESC[k] || '';
+      list.append(b);
     });
+    const foot = el('p', 'qcard-f', 'Or type your own question below');
+    d.append(h, list, foot);
     body.append(d);
     requestAnimationFrame(() => d.classList.add('on'));
   };
+
+  // after a pick, the card collapses to the chosen option, like an answered question
+  const settleCard = (btn) => {
+    const card = btn && btn.closest('.qcard');
+    if (!card || card.classList.contains('answered')) return;
+    card.classList.add('answered');
+    $$('.qopt', card).forEach((o) => { o.disabled = true; o.classList.toggle('picked', o === btn); });
+  };
+  const settleOpenCards = () => $$('.qcard:not(.answered)', thread).forEach((c) => {
+    c.classList.add('answered', 'skipped');
+    $$('.qopt', c).forEach((o) => { o.disabled = true; });
+  });
 
   const announce = (t) => {
     const parts = [];
@@ -849,7 +882,13 @@
   // one delegated click handler: topics, chips, proof links, view toggles, theme, copy
   document.addEventListener('click', (e) => {
     const topic = e.target.closest('[data-topic]');
-    if (topic && app.contains(topic)) { disarmJD(); ask(topic.dataset.topic, { user: true }); return; }
+    if (topic && app.contains(topic)) {
+      if (topic.disabled) return;
+      disarmJD();
+      if (topic.closest('.qcard')) settleCard(topic); else settleOpenCards();
+      ask(topic.dataset.topic, { user: true });
+      return;
+    }
     const vt = e.target.closest('[data-view-to]');
     if (vt) { setView(vt.dataset.viewTo); return; }
     if (e.target.closest('.theme-btn')) { toggleTheme(); return; }
@@ -878,6 +917,7 @@
     const v = input.value.trim();
     if (!v) return;
     input.value = '';
+    settleOpenCards();
     if (jdMode || v.split(/\s+/).length > 40) {
       disarmJD();
       const t = fitTopic(v);
@@ -898,6 +938,11 @@
     if (e.key === '/' && agent) { e.preventDefault(); input.focus(); }
     else if (e.key === 't' || e.key === 'T') toggleTheme();
     else if (e.key === 'v' || e.key === 'V') setView(agent ? 'classic' : 'agent');
+    else if (agent && !busy && /^[1-9]$/.test(e.key)) {
+      const cards = $$('.qcard:not(.answered)', thread);
+      const opt = cards.length && $$('.qopt', cards[cards.length - 1])[+e.key - 1];
+      if (opt) opt.click();
+    }
   });
 
   wideMQ.addEventListener('change', () => { /* panel visibility is CSS-driven; nothing to rebuild */ });
