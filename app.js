@@ -127,7 +127,7 @@
     person: '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
     fit: '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 14l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>'
   };
-  const LEVEL = 'Full-stack engineer · ~3.5 yrs · backend + AI in production · remote from Noida';
+  const LEVEL = 'Full-stack engineer · ~3.5 yrs · backend + AI in production · Noida, open to remote';
   const TAGLINE = 'Backend systems and AI agents, and the web and TV apps that sit on top of them.';
 
   const A = {
@@ -145,7 +145,7 @@
       q: 'Who is Tarun Sahnan?', side: 'Who is Tarun?', chip: 'Who is Tarun?',
       tools: [['read_resume()', '3 roles · 1 degree · 2022 – now'], ['query_projects({ sort: "impact" })', 'ranked by measured results'], ['open_case_study("1U1A")', 'diagram attached']],
       blocks: [
-        { p: '<b>Tarun Sahnan</b> is a full-stack engineer (~3.5 years) whose strongest work is backend and AI systems. Since July 2024 he has been at <b>STAGE</b>, an OTT platform for Haryanvi, Rajasthani and Bhojpuri shows. He works remote from Noida.' },
+        { p: '<b>Tarun Sahnan</b> is a full-stack engineer (~3.5 years) whose strongest work is backend and AI systems. Since July 2024 he has been at <b>STAGE</b>, an OTT platform for Haryanvi, Rajasthani and Bhojpuri shows. He is based in Noida and open to remote roles.' },
         { metrics: [['~100K/day', 'AI agent generations (~1 lakh)'], ['7% → 13%', 'subscription conversion'], ['₹4L/mo', 'tooling saved (~US$4.7K)'], ['~70%', 'lower infra cost']] },
         { p: 'Highlights:' },
         { ul: [
