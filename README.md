@@ -3,11 +3,13 @@
 Personal portfolio. The classic one-page site is the HTML itself (what search
 engines and no-JS visitors get). JavaScript then mounts an agent view on top:
 
-- **ask tarun (agent view, default with JS):** a *scripted* chat agent. The first
-  visit auto-asks "Who is Tarun Sahnan?", shows tool steps, then streams an answer
-  with metric tiles, artifacts (diagrams, timeline, project card) and follow-up
-  chips. Returning visitors get the answer instantly. On wide screens, artifacts
-  open in a right-hand workspace panel next to the chat.
+- **ask tarun (agent view, default with JS):** a *scripted* chat agent. Every
+  visit opens with a short boot screen (what the agent is, then four loading
+  steps; click or `Esc` skips), then auto-asks "Who is Tarun Sahnan?", shows tool
+  steps and streams an answer with metric tiles, artifacts (diagrams, timeline,
+  project card) and follow-up chips. On wide screens, artifacts open in a
+  right-hand workspace panel next to the chat. `?q=<topic>` links skip straight
+  to that answer.
 - Visitors pick a topic from the sidebar or from the numbered "what next" card
   after each answer (keys `1`–`N` choose an option). There is no free-text box.
 - Every answer has **Copy link** (`?q=backend|ai|frontend|inspex|experience|stack|contact|why`)

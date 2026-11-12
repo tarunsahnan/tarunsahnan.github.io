@@ -675,7 +675,6 @@
         if (id !== runId) return;
       }
       await answer('who', T.who, {});
-      store.set('introSeen', '1');
     })();
     await currentRun;
     introActive = false;
@@ -692,61 +691,69 @@
     return w;
   };
 
-  // first-visit splash: says what this page is before the intro starts
-  const splash = () => new Promise((resolve) => {
-    const s = el('div', 'splash');
-    s.setAttribute('role', 'dialog');
-    s.setAttribute('aria-modal', 'true');
-    s.setAttribute('aria-labelledby', 'splash-t');
-    s.innerHTML = `<div class="splash-card">
+  // agent boot screen: plays on every visit, then hands over to the intro
+  const BOOT = [
+    ['Waking up the agent', 'ask tarun'],
+    ['Reading his résumé', '3 roles · 2022 – now'],
+    ['Loading projects', '1U1A · agentic paywall · campaign platform'],
+    ['Opening the workspace', 'diagrams + real numbers']
+  ];
+  const loader = () => new Promise((resolve) => {
+    const s = el('div', 'loader');
+    s.setAttribute('role', 'status');
+    s.setAttribute('aria-label', 'Loading ask tarun');
+    s.innerHTML = `<div class="loader-card">
         <span class="mark mark-xl" aria-hidden="true">ts<i></i></span>
-        <p class="splash-kicker">ask tarun</p>
-        <h1 id="splash-t">Tarun Sahnan</h1>
-        <p class="splash-lede">Full-stack engineer, ~3.5 years. Backend systems and AI agents in production at STAGE, plus the web and TV apps on top of them.</p>
-        <p class="splash-h">What to expect</p>
-        <ol class="splash-list">
-          <li><b>A chat-style tour of his real work.</b> Every answer is hand-written from his résumé. No AI model, no tracking.</li>
-          <li><b>You steer it.</b> Pick a topic, or a card after each answer.</li>
-          <li><b>Proof, not claims.</b> Diagrams and numbers for each project open alongside.</li>
-          <li><b>Prefer one page?</b> The classic view has everything, any time.</li>
-        </ol>
-        <div class="splash-actions">
-          <button type="button" class="splash-go">Start the tour <span aria-hidden="true">→</span></button>
-          <button type="button" class="splash-classic">Classic view</button>
-        </div>
-        <p class="splash-hint">Press <kbd>Enter</kbd> to start</p>
+        <p class="loader-kicker">ask tarun</p>
+        <h1>An agent over Tarun Sahnan's real work</h1>
+        <p class="loader-lede">Ask about his AI agents, backend systems, and the web and TV apps he built. Every answer is hand-written from his résumé, with diagrams and numbers as proof.</p>
+        <ol class="loader-steps"></ol>
+        <div class="loader-bar" aria-hidden="true"><i></i></div>
+        <p class="loader-hint">Click or press <kbd>Esc</kbd> to skip</p>
       </div>`;
     document.body.append(s);
-    requestAnimationFrame(() => s.classList.add('on'));
-    const done = (view) => {
+    const steps = $('.loader-steps', s);
+    const bar = $('.loader-bar i', s);
+    let over = false;
+    const done = () => {
+      if (over) return;
+      over = true;
       document.removeEventListener('keydown', onKey, true);
-      s.classList.remove('on');
-      setTimeout(() => s.remove(), reduce ? 0 : 320);
-      resolve(view);
+      s.classList.add('out');
+      setTimeout(() => s.remove(), reduce ? 0 : 420);
+      resolve();
     };
     const onKey = (e) => {
-      if (e.key === 'Enter' || e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); done('agent'); }
+      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); done(); }
     };
     document.addEventListener('keydown', onKey, true);
-    $('.splash-go', s).addEventListener('click', () => done('agent'));
-    $('.splash-classic', s).addEventListener('click', () => done('classic'));
-    $('.splash-go', s).focus({ preventScroll: true });
+    s.addEventListener('click', done);
+    const pause = (ms) => new Promise((r) => setTimeout(r, reduce ? 0 : ms));
+    (async () => {
+      requestAnimationFrame(() => s.classList.add('on'));
+      await pause(450);
+      for (let i = 0; i < BOOT.length && !over; i++) {
+        const li = el('li', 'run', '<span class="st" aria-hidden="true"></span><span class="lt"></span><span class="ld"></span>');
+        $('.lt', li).textContent = BOOT[i][0];
+        $('.ld', li).textContent = BOOT[i][1];
+        steps.append(li);
+        await pause(620);
+        li.classList.replace('run', 'ok');
+        bar.style.width = `${Math.round(((i + 1) / BOOT.length) * 100)}%`;
+      }
+      if (over) return;
+      await pause(500);
+      done();
+    })();
   });
 
   function startAgent() {
     started = true;
     thread.replaceChildren(welcome());
     const deep = DEEP[(params.get('q') || '').toLowerCase()];
-    const forceSplash = params.get('splash') === '1';
-    if (deep) { store.set('introSeen', '1'); ask(deep, { instant: true }); }
-    else if (store.get('introSeen') && !STATE && !forceSplash) ask('who', { instant: true });
-    else {
-      if (!STATE) store.set('introSeen', '1');
-      if (STATE) { intro(); return; }
-      splash().then((v) => {
-        if (v === 'classic') { setView('classic'); ask('who', { instant: true }); } else intro();
-      });
-    }
+    if (deep) { ask(deep, { instant: true }); return; } // shared deep link: straight to that answer
+    if (STATE) { intro(); return; }                       // debug freeze points skip the boot screen
+    loader().then(() => intro());
   }
 
   /* ---------- wiring ---------- */
@@ -780,7 +787,7 @@
   skipBtn.addEventListener('click', finishNow);
 
   document.addEventListener('keydown', (e) => {
-    if (e.metaKey || e.ctrlKey || e.altKey || $('.splash')) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || $('.loader')) return;
     const tag = (e.target.tagName || '').toLowerCase();
     const typing = tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable;
     if (e.key === 'Escape') { if (busy) finishNow(); else if (typing) e.target.blur(); return; }
