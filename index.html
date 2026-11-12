@@ -38,8 +38,8 @@
       setTimeout(function () { if (!document.getElementById('app')) d.setAttribute('data-view', 'classic'); }, 2500);
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=34">
-  <script src="app.js?v=34" defer></script>
+  <link rel="stylesheet" href="style.css?v=35">
+  <script src="app.js?v=35" defer></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Tarun Sahnan","jobTitle":"Full-stack Product Engineer","address":{"@type":"PostalAddress","addressLocality":"Noida","addressCountry":"IN"},"email":"mailto:tarunsahnan98@gmail.com","url":"https://tarunsahnan.github.io/","sameAs":["https://www.linkedin.com/in/tarun-sahnan","https://github.com/tarunsahnan"],"alumniOf":"Lovely Professional University"}
   </script>
@@ -75,9 +75,7 @@
         <li><a href="mailto:tarunsahnan98@gmail.com">Email</a></li>
         <li><a href="https://www.linkedin.com/in/tarun-sahnan" rel="noopener" target="_blank">LinkedIn</a></li>
         <li><a href="https://github.com/tarunsahnan" rel="noopener" target="_blank">GitHub</a></li>
-        <!-- RÉSUMÉ: add an updated PDF to the repo, then uncomment:
-        <li><a href="Tarun-Sahnan-Resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
-        -->
+        <li><a href="Tarun-Sahnan-Full-Stack.pdf" target="_blank" rel="noopener">Résumé</a></li>
       </ul>
 
       <dl class="stats">
@@ -322,21 +320,38 @@
           <p class="when">Jul 2024 — now</p>
           <div>
             <h3>Software Engineer · STAGE</h3>
-            <p>OTT streaming for regional and dialect content (Haryanvi, Rajasthani, Bhojpuri and more) on web, mobile and smart TV. Everything above.</p>
+            <p>OTT streaming for regional and dialect content (Haryanvi, Rajasthani, Bhojpuri and more) on web, mobile and smart TV.</p>
+            <ul class="wins">
+              <li><b>AI:</b> sole developer of One User, One Agent (~1 lakh generations a day, ~5s home page) and an agentic paywall that took subscription conversion from 7% to 13%.</li>
+              <li><b>Backend:</b> campaign platform on NestJS, PostgreSQL, Kafka, ClickHouse and Temporal that saves ₹4 lakh a month; promo-to-ad pipeline with signed S3 uploads and AI ad copy for Meta, Google and Snapchat.</li>
+              <li><b>Data &amp; auth:</b> cut each show's storage from 20 documents (10 dialects × 2 languages) to one, backward compatible; AWS signed URLs and cookies; auto-login for ad-acquired users (login conversion 81% → 87%); ad attribution across backend, web and app.</li>
+              <li><b>Web:</b> built the STAGE website alone in Next.js (~300K organic search clicks); Lighthouse ~58 → ~90, LCP 7s → 3s; payment-success redesign lifted web-to-app installs 64% → 71%; moved hosting off Amplify, cutting infra cost ~70%.</li>
+              <li><b>TV:</b> shipped the Samsung (Tizen) and LG (webOS) apps with OTA web-bundle updates, so releases went from ~2 months to ~2 minutes.</li>
+            </ul>
           </div>
         </li>
         <li>
           <p class="when">Jun 2023 — Jun 2024</p>
           <div>
             <h3>Software Engineer · Liberin Technologies</h3>
-            <p>Node.js REST APIs and an internal NPM package for multi-flow authentication. Took test coverage in a legacy codebase from 35% to 83%. Built a Vue 3 dashboard from scratch (Vite, TypeScript, Tailwind, Vitest) and upgraded a Vue 2 one.</p>
+            <ul class="wins">
+              <li>Built a high-performance Vue 3 dashboard from scratch (Vite, TypeScript, Tailwind, Vitest), owning architecture, components and rollout.</li>
+              <li>Created an internal NPM package for multi-flow authentication, so every project logs in the same way and duplicated auth code went away.</li>
+              <li>Raised test coverage in a legacy codebase from 35% to 83%, and extended a custom UI library with dynamic components and Storybook.</li>
+              <li>Upgraded a Vue 2 dashboard for cross-platform use and built Node.js REST API services.</li>
+            </ul>
           </div>
         </li>
         <li>
           <p class="when">Jul 2022 — May 2023</p>
           <div>
             <h3>Software Engineer Intern · Krishify</h3>
-            <p>Agritech for Indian farmers. Built the complete React frontend for Bhumi, an agricultural AI chatbot that went to production after a 48-hour hackathon. Product listing and checkout pages for a farmers' e-commerce platform, and Android performance work in Kotlin.</p>
+            <p>Agritech for Indian farmers.</p>
+            <ul class="wins">
+              <li>Built the complete React frontend for Bhumi, an agricultural AI chatbot that went to production after a 48-hour hackathon.</li>
+              <li>Built product listing and checkout pages for a React e-commerce platform for farmers.</li>
+              <li>Improved load times and responsiveness of the Android app in Kotlin.</li>
+            </ul>
           </div>
         </li>
         <li>
@@ -439,6 +454,7 @@
           <div class="chat-id"><span class="mark" aria-hidden="true">ts<i></i></span><span class="chat-title">ask tarun</span></div>
           <div class="chat-actions">
             <a class="top-btn top-email" href="mailto:tarunsahnan98@gmail.com">Email</a>
+            <a class="top-btn" href="Tarun-Sahnan-Full-Stack.pdf" target="_blank" rel="noopener">Résumé</a>
             <button type="button" class="top-btn" data-view-to="classic" title="Everything on one page (V)">Classic view</button>
             <button class="theme theme-btn" type="button" aria-label="Switch colour theme" title="Switch theme (T)">
               <svg class="i-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>

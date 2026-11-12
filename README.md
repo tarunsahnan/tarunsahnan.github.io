@@ -19,8 +19,8 @@ Keys: `1`–`N` pick an option, `Esc` skip, `V` switch view, `T` theme (ignored 
 Light/dark follow the system. Reduced motion renders answers instantly.
 Debug params: `?theme=light|dark`, `?state=tools|stream|done`.
 
-Résumé: there is no PDF in the repo. A commented-out link in the classic hero
-marks where to add one.
+Résumé: `Tarun-Sahnan-Full-Stack.pdf`, linked from the classic hero and the
+agent view's top bar. Replace the file in place to update it.
 
 ## Local preview
 

@@ -266,7 +266,9 @@
   let currentRun = Promise.resolve();
   let skipNow = () => {};
   let skipP = Promise.resolve();
-  const wait = (ms) => (instant ? Promise.resolve() : Promise.race([new Promise((r) => setTimeout(r, ms)), skipP]));
+  // the first-visit intro plays at a calmer pace than answers to clicks
+  const INTRO_PACE = 2.6;
+  const wait = (ms) => (instant ? Promise.resolve() : Promise.race([new Promise((r) => setTimeout(r, introActive ? ms * INTRO_PACE : ms)), skipP]));
   const gate = (name) => (introActive && STATE === name ? new Promise(() => {}) : Promise.resolve());
   function finishNow() { if (!busy) return; instant = true; skipNow(); }
   const startRun = () => {
@@ -382,7 +384,8 @@
       units[i].after(caret);
       if (gateName && i === Math.floor(units.length * 0.55)) await gate(gateName);
       if (instant) { units.forEach((u) => u.classList.add('on')); break; }
-      if (i % 2 === 1) { await wait(22); follow(); }
+      await wait(22);
+      if (i % 2 === 1) follow();
     }
     caret.remove();
   };
@@ -689,13 +692,61 @@
     return w;
   };
 
+  // first-visit splash: says what this page is before the intro starts
+  const splash = () => new Promise((resolve) => {
+    const s = el('div', 'splash');
+    s.setAttribute('role', 'dialog');
+    s.setAttribute('aria-modal', 'true');
+    s.setAttribute('aria-labelledby', 'splash-t');
+    s.innerHTML = `<div class="splash-card">
+        <span class="mark mark-xl" aria-hidden="true">ts<i></i></span>
+        <p class="splash-kicker">ask tarun</p>
+        <h1 id="splash-t">Tarun Sahnan</h1>
+        <p class="splash-lede">Full-stack engineer, ~3.5 years. Backend systems and AI agents in production at STAGE, plus the web and TV apps on top of them.</p>
+        <p class="splash-h">What to expect</p>
+        <ol class="splash-list">
+          <li><b>A chat-style tour of his real work.</b> Every answer is hand-written from his résumé. No AI model, no tracking.</li>
+          <li><b>You steer it.</b> Pick a topic, or a card after each answer.</li>
+          <li><b>Proof, not claims.</b> Diagrams and numbers for each project open alongside.</li>
+          <li><b>Prefer one page?</b> The classic view has everything, any time.</li>
+        </ol>
+        <div class="splash-actions">
+          <button type="button" class="splash-go">Start the tour <span aria-hidden="true">→</span></button>
+          <button type="button" class="splash-classic">Classic view</button>
+        </div>
+        <p class="splash-hint">Press <kbd>Enter</kbd> to start</p>
+      </div>`;
+    document.body.append(s);
+    requestAnimationFrame(() => s.classList.add('on'));
+    const done = (view) => {
+      document.removeEventListener('keydown', onKey, true);
+      s.classList.remove('on');
+      setTimeout(() => s.remove(), reduce ? 0 : 320);
+      resolve(view);
+    };
+    const onKey = (e) => {
+      if (e.key === 'Enter' || e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); done('agent'); }
+    };
+    document.addEventListener('keydown', onKey, true);
+    $('.splash-go', s).addEventListener('click', () => done('agent'));
+    $('.splash-classic', s).addEventListener('click', () => done('classic'));
+    $('.splash-go', s).focus({ preventScroll: true });
+  });
+
   function startAgent() {
     started = true;
     thread.replaceChildren(welcome());
     const deep = DEEP[(params.get('q') || '').toLowerCase()];
+    const forceSplash = params.get('splash') === '1';
     if (deep) { store.set('introSeen', '1'); ask(deep, { instant: true }); }
-    else if (store.get('introSeen') && !STATE) ask('who', { instant: true });
-    else { if (!STATE) store.set('introSeen', '1'); intro(); }
+    else if (store.get('introSeen') && !STATE && !forceSplash) ask('who', { instant: true });
+    else {
+      if (!STATE) store.set('introSeen', '1');
+      if (STATE) { intro(); return; }
+      splash().then((v) => {
+        if (v === 'classic') { setView('classic'); ask('who', { instant: true }); } else intro();
+      });
+    }
   }
 
   /* ---------- wiring ---------- */
@@ -729,7 +780,7 @@
   skipBtn.addEventListener('click', finishNow);
 
   document.addEventListener('keydown', (e) => {
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || $('.splash')) return;
     const tag = (e.target.tagName || '').toLowerCase();
     const typing = tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable;
     if (e.key === 'Escape') { if (busy) finishNow(); else if (typing) e.target.blur(); return; }

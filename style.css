@@ -184,6 +184,10 @@ a { color: inherit; text-decoration: none; }
 .when { font: 400 var(--t-xs)/1.9 var(--mono); color: var(--fg-3); font-variant-numeric: tabular-nums; }
 .timeline h3 { font-size: var(--t-md); font-weight: 500; letter-spacing: -.01em; }
 .timeline p:not(.when) { margin-top: var(--s1); color: var(--fg-2); font-size: var(--t-sm); max-width: 62ch; }
+.timeline .wins { margin-top: var(--s2); display: grid; gap: 6px; max-width: 62ch; padding: 0; list-style: none; }
+.timeline .wins li { display: block; position: relative; padding-left: 16px; color: var(--fg-2); font-size: var(--t-sm); line-height: 1.55; }
+.timeline .wins li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.timeline .wins b { color: var(--fg); font-weight: 500; }
 
 /* projects */
 .feature { padding: var(--s5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
@@ -500,3 +504,26 @@ html[data-state] .msg-user, html[data-state] .msg-agent, html[data-state] .tool,
 .rail-foot .linkish { font-size: var(--t-xs); }
 .panel .d-wide { display: none; }
 .panel .d-narrow { display: block; width: 100%; max-width: 440px; margin: 0 auto; }
+
+/* first-visit splash */
+.splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: var(--s4); overflow-y: auto; background: var(--bg); opacity: 0; transition: opacity .3s ease; }
+.splash.on { opacity: 1; }
+.splash-card { width: 100%; max-width: 520px; transform: translateY(8px); transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+.splash.on .splash-card { transform: none; }
+.splash-kicker { margin-top: var(--s4); font: 500 var(--t-xs)/1 var(--mono); color: var(--accent); }
+.splash h1 { margin-top: var(--s2); font-size: var(--t-2xl); font-weight: 500; letter-spacing: -.03em; line-height: 1.1; }
+.splash-lede { margin-top: var(--s3); font-size: var(--t-md); color: var(--fg-2); line-height: 1.55; }
+.splash-h { margin-top: var(--s6); font-size: var(--t-xs); color: var(--fg-3); text-transform: uppercase; letter-spacing: .08em; }
+.splash-list { margin-top: var(--s3); display: grid; gap: var(--s3); padding: 0; list-style: none; counter-reset: sp; }
+.splash-list li { position: relative; padding-left: 34px; font-size: var(--t-sm); color: var(--fg-2); line-height: 1.5; counter-increment: sp; }
+.splash-list li::before { content: counter(sp); position: absolute; left: 0; top: 1px; display: grid; place-items: center; width: 22px; height: 22px; font: 500 12px/1 var(--mono); color: var(--fg-2); border: 1px solid var(--line-2); border-radius: 6px; }
+.splash-list b { color: var(--fg); font-weight: 500; }
+.splash-actions { margin-top: var(--s6); display: flex; flex-wrap: wrap; gap: var(--s2); }
+.splash-go, .splash-classic { height: 42px; padding: 0 18px; border-radius: 10px; font: 500 var(--t-sm)/1 var(--sans); cursor: pointer; }
+.splash-go { color: var(--bg); background: var(--fg); border: 1px solid var(--fg); }
+.splash-go:hover { opacity: .88; }
+.splash-classic { color: var(--fg-2); background: transparent; border: 1px solid var(--line-2); }
+.splash-classic:hover { color: var(--fg); background: var(--surface-2); }
+.splash-hint { margin-top: var(--s3); font-size: 12px; color: var(--fg-3); }
+@media (hover: none) { .splash-hint { display: none; } }
+@media (prefers-reduced-motion: reduce) { .splash, .splash-card { transition: none; } }
