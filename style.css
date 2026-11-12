@@ -391,6 +391,8 @@ html[data-view="agent"] .app { display: grid; grid-template-columns: 236px minma
 .actions-card, .profile-links { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: var(--s2); margin: var(--s2) 0 var(--s4); }
 .act { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 2px; min-height: 50px; padding: 10px 14px; font: 500 var(--t-sm)/1.2 var(--sans); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; transition: border-color .15s, transform .15s; text-align: left; }
 .act:hover { border-color: var(--line-2); transform: translateY(-1px); }
+.act-resume { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--accent-soft); }
+.act-resume small { color: var(--fg-3); }
 .act-primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .act-primary small { font: 400 11.5px/1.2 var(--mono); opacity: .7; }
 

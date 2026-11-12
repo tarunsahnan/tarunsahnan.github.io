@@ -14,6 +14,7 @@
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wideMQ = window.matchMedia('(min-width: 1200px)');
   const EMAIL = 'tarunsahnan98@gmail.com';
+  const RESUME = 'Tarun-Sahnan-Full-Stack.pdf';
   if (STATE) root.setAttribute('data-state', STATE);
 
   const store = {
@@ -323,6 +324,7 @@
         <a class="act act-primary" href="mailto:${EMAIL}"><span>Email</span><small>${EMAIL}</small></a>
         <a class="act" href="https://www.linkedin.com/in/tarun-sahnan" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a class="act" href="https://github.com/tarunsahnan" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="act act-resume" href="${RESUME}" target="_blank" rel="noopener"><span>Résumé <span aria-hidden="true">↗</span></span><small>One-page PDF</small></a>
       </div>
       <p class="profile-note">Every answer on the left is hand-written from his résumé. Use “view source” under an answer to see the data behind it.</p>`;
     return d;
@@ -432,7 +434,8 @@
     d.innerHTML = `<a class="act act-primary" href="mailto:${EMAIL}"><span>Email Tarun</span><small>${EMAIL}</small></a>
       <button class="act" type="button" data-copy-email>Copy email</button>
       <a class="act" href="https://www.linkedin.com/in/tarun-sahnan" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-      <a class="act" href="https://github.com/tarunsahnan" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>`;
+      <a class="act" href="https://github.com/tarunsahnan" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+      <a class="act act-resume" href="${RESUME}" target="_blank" rel="noopener"><span>Résumé <span aria-hidden="true">↗</span></span><small>One-page PDF</small></a>`;
     return d;
   };
 
